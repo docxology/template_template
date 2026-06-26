@@ -1,14 +1,14 @@
+# Generated outputs are regeneratable; never commit them.
 output/
 .coverage
 .coverage.*
 .pytest_cache/
-.mypy_cache/
-.ruff_cache/
 __pycache__/
 *.pyc
 .benchmarks/
+
+# Egg-info from local installs (any location — guards against renamed-fork drift).
+**/*.egg-info/
+
+# Project-local virtualenvs (root .venv is shared)
 .venv/
-htmlcov/
-src/*.egg-info/
-*.egg-info/
-.DS_Store

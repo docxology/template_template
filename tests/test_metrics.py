@@ -10,6 +10,7 @@ from template_template.metrics import (
     build_module_inventory_table,
     count_docs_markdown_files,
     count_docs_subdirs,
+    count_prompt_templates,
     count_test_functions,
     format_count,
 )
@@ -56,6 +57,33 @@ class TestDocsCounters:
         (docs / "y").mkdir()
         (docs / "file.md").write_text("# f", encoding="utf-8")
         assert count_docs_subdirs(tmp_path) == 2
+
+    def test_count_prompt_templates_missing_dir(self, tmp_path: Path) -> None:
+        assert count_prompt_templates(tmp_path) == 0
+
+    def test_count_prompt_templates_counts_workflow_subdirs(self, tmp_path: Path) -> None:
+        """A prompt template is a subdirectory carrying a ``SKILL.md``.
+
+        Binds the count to the real spec (``docs/prompts/README.md``), not to
+        the implementation: top-level registry ``.md`` files and a bare
+        subdirectory without ``SKILL.md`` are negative controls.
+        """
+        prompts = tmp_path / "docs" / "prompts"
+        (prompts / "academic-paper").mkdir(parents=True)
+        (prompts / "academic-paper" / "SKILL.md").write_text("# a", encoding="utf-8")
+        (prompts / "deep-research").mkdir()
+        (prompts / "deep-research" / "SKILL.md").write_text("# d", encoding="utf-8")
+        # subdirectory without SKILL.md → not a complete template (negative control)
+        (prompts / "draft").mkdir()
+        (prompts / "draft" / "notes.md").write_text("# n", encoding="utf-8")
+        # THREE top-level registry files → housekeeping, not templates. Having a
+        # different count of top-level .md (3) than real templates (2) makes this
+        # a true discriminator: a top-level-.md implementation would return 3 and
+        # fail, so the test binds to the workflow-subdir spec, not the impl.
+        (prompts / "README.md").write_text("# r", encoding="utf-8")
+        (prompts / "SKILL.md").write_text("# s", encoding="utf-8")
+        (prompts / "AGENTS.md").write_text("# a", encoding="utf-8")
+        assert count_prompt_templates(tmp_path) == 2
 
 
 class TestFormatCount:
@@ -130,28 +158,38 @@ class TestBuildManuscriptMetricsDict:
         """CONFIDENTIALITY: projects/archive/ contents must NEVER reach metrics.
 
         ``projects/archive/`` symlinks private/rotating projects. Even when an
-        archived project (e.g. ``template_search_project``) is present on disk with
-        a full ``manuscript/config.yaml``, its name must not appear as a
-        ``project_*`` metric key, because those keys flow straight into the public
-        manuscript and DOI. This is the direct inversion of the former (leaking)
-        behaviour.
+        archived project is present on disk with a full ``manuscript/config.yaml``,
+        its name must not appear as a ``project_*`` metric key, because those keys
+        flow straight into the public manuscript and DOI. This is the direct
+        inversion of the former (leaking) behaviour.
+
+        A direct child of ``archive/`` whose name starts with ``_`` is a category
+        grouping (see ``infrastructure/project/linking.py``), not a project — its
+        own children, one level down, are the actual archived projects. Both levels
+        are scanned so a newly-categorized archive entry cannot silently evade this
+        check.
         """
         metrics = build_manuscript_metrics_dict(REPO_ROOT)
         archive_dir = REPO_ROOT / "projects" / "archive"
         if not archive_dir.is_dir():
             return
-        archived_names = {
-            child.name
-            for child in archive_dir.iterdir()
-            if child.is_dir()
-            and not child.name.startswith((".", "_"))
-            and (child / "manuscript" / "config.yaml").is_file()
-        }
+
+        def _is_archived_project(path: Path) -> bool:
+            return path.is_dir() and (path / "manuscript" / "config.yaml").is_file()
+
+        archived_names: set[str] = set()
+        for child in archive_dir.iterdir():
+            if not child.is_dir() or child.name.startswith("."):
+                continue
+            if child.name.startswith("_"):
+                archived_names.update(
+                    grandchild.name for grandchild in child.iterdir() if _is_archived_project(grandchild)
+                )
+            elif _is_archived_project(child):
+                archived_names.add(child.name)
         # Public exemplars never live under projects/archive/, so any archived name
         # is by definition out of scope for the published metrics.
         for name in archived_names:
             assert f"project_{name}_test_count" not in metrics, (
                 f"Archived project '{name}' leaked into metrics — confidentiality breach"
             )
-        # Specifically prove the historically-leaked archive exemplar is gone.
-        assert "project_template_search_project_test_count" not in metrics

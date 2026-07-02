@@ -31,7 +31,6 @@ Coverage targets (from the 91.88% baseline):
 from __future__ import annotations
 
 import json
-import stat
 import sys
 from pathlib import Path
 
@@ -212,9 +211,7 @@ class TestDiscoverInfrastructureModulesImportError:
                 all_sym = getattr(mod, "__all__", None)
                 # If __all__ exists, public_symbols came from it (line 147).
                 if all_sym is not None:
-                    assert m.public_symbols == list(all_sym), (
-                        f"infrastructure.{m.name}: public_symbols mismatch"
-                    )
+                    assert m.public_symbols == list(all_sym), f"infrastructure.{m.name}: public_symbols mismatch"
             except (ImportError, AttributeError, OSError):
                 pass  # Import failures are handled by the except branch
 
@@ -258,9 +255,7 @@ class TestProjectAnalysisFromWorkspaceEdgeCases:
         workspace = tmp_path / "bad_yaml_proj"
         manuscript = workspace / "manuscript"
         manuscript.mkdir(parents=True)
-        (manuscript / "config.yaml").write_text(
-            "paper: {unclosed bracket: [bad yaml\n", encoding="utf-8"
-        )
+        (manuscript / "config.yaml").write_text("paper: {unclosed bracket: [bad yaml\n", encoding="utf-8")
         (manuscript / "01_intro.md").write_text("# Intro\n", encoding="utf-8")
 
         result = _project_analysis_from_workspace(workspace)
@@ -286,9 +281,7 @@ class TestDiscoverProjectsPublicOnlyFalse:
         projects_dir.mkdir(parents=True)
         proj = projects_dir / "my_private_project"
         (proj / "manuscript").mkdir(parents=True)
-        (proj / "manuscript" / "config.yaml").write_text(
-            "paper:\n  title: Private\n", encoding="utf-8"
-        )
+        (proj / "manuscript" / "config.yaml").write_text("paper:\n  title: Private\n", encoding="utf-8")
         (proj / "manuscript" / "01_intro.md").write_text("# Intro\n", encoding="utf-8")
 
         result = discover_projects(tmp_path, public_only=False)
@@ -310,6 +303,72 @@ class TestDiscoverProjectsPublicOnlyFalse:
         assert result == []
 
 
+class TestCandidateWorkspacesFlatChild:
+    """_candidate_workspaces returns flat (non-typed) children directly.
+
+    Covers introspection.py:257 — the ``else`` branch where a child directory
+    under ``projects/`` is NOT one of the typed program subfolders
+    (templates/active/working/published/archive/other) and is therefore
+    treated as a workspace itself rather than a program folder to recurse into.
+    """
+
+    def test_flat_child_discovered_as_workspace(self, tmp_path: Path) -> None:
+        """A flat project dir under projects/ is discovered without a typed prefix."""
+        from template_template.introspection import discover_projects
+
+        (tmp_path / "infrastructure").mkdir()
+        (tmp_path / "pyproject.toml").write_text("[project]\nname='fake'\n", encoding="utf-8")
+        # Flat workspace directly under projects/ (no templates/ wrapper).
+        proj = tmp_path / "projects" / "flat_project"
+        (proj / "manuscript").mkdir(parents=True)
+        (proj / "manuscript" / "config.yaml").write_text(
+            "paper:\n  title: Flat\n", encoding="utf-8"
+        )
+        (proj / "manuscript" / "01_intro.md").write_text("# Intro\n", encoding="utf-8")
+
+        result = discover_projects(tmp_path, public_only=False)
+        names = {p.name for p in result}
+        assert "flat_project" in names
+
+    def test_typed_subfolder_is_recursed_not_returned_directly(self, tmp_path: Path) -> None:
+        """A typed program subfolder (templates/) is recursed into, not returned itself."""
+        from template_template.introspection import discover_projects
+
+        (tmp_path / "infrastructure").mkdir()
+        (tmp_path / "pyproject.toml").write_text("[project]\nname='fake'\n", encoding="utf-8")
+        nested = tmp_path / "projects" / "templates" / "nested_project"
+        (nested / "manuscript").mkdir(parents=True)
+        (nested / "manuscript" / "config.yaml").write_text(
+            "paper:\n  title: Nested\n", encoding="utf-8"
+        )
+        (nested / "manuscript" / "01_intro.md").write_text("# Intro\n", encoding="utf-8")
+
+        result = discover_projects(tmp_path, public_only=False)
+        names = {p.name for p in result}
+        # The typed folder name itself never becomes a workspace.
+        assert "templates" not in names
+        assert "nested_project" in names
+
+    def test_underscore_and_dot_children_skipped(self, tmp_path: Path) -> None:
+        """Children prefixed with '_' or '.' are not treated as workspaces."""
+        from template_template.introspection import discover_projects
+
+        (tmp_path / "infrastructure").mkdir()
+        (tmp_path / "pyproject.toml").write_text("[project]\nname='fake'\n", encoding="utf-8")
+        projects_dir = tmp_path / "projects"
+        projects_dir.mkdir(parents=True)
+        for hidden in ("_staging", ".cache"):
+            d = projects_dir / hidden / "manuscript"
+            d.mkdir(parents=True)
+            (d / "config.yaml").write_text("paper:\n  title: Hidden\n", encoding="utf-8")
+            (d / "01_intro.md").write_text("# Intro\n", encoding="utf-8")
+
+        result = discover_projects(tmp_path, public_only=False)
+        names = {p.name for p in result}
+        assert "_staging" not in names
+        assert ".cache" not in names
+
+
 class TestAnalyzeTestCoverageConfigYAMLError:
     """YAML parse error branch in analyze_test_coverage_config."""
 
@@ -318,9 +377,7 @@ class TestAnalyzeTestCoverageConfigYAMLError:
 
         project = tmp_path / "proj"
         (project / "manuscript").mkdir(parents=True)
-        (project / "manuscript" / "config.yaml").write_text(
-            "testing: {bad: yaml: [unclosed\n", encoding="utf-8"
-        )
+        (project / "manuscript" / "config.yaml").write_text("testing: {bad: yaml: [unclosed\n", encoding="utf-8")
 
         result = analyze_test_coverage_config(project)
         assert result is None
@@ -331,9 +388,7 @@ class TestAnalyzeTestCoverageConfigYAMLError:
 
         project = tmp_path / "proj"
         (project / "manuscript").mkdir(parents=True)
-        (project / "manuscript" / "config.yaml").write_text(
-            "paper:\n  title: Test\n", encoding="utf-8"
-        )
+        (project / "manuscript" / "config.yaml").write_text("paper:\n  title: Test\n", encoding="utf-8")
 
         result = analyze_test_coverage_config(project)
         assert result is not None
@@ -586,7 +641,6 @@ class TestStageColorFallback:
     def test_recognized_tag_returns_correct_color(self) -> None:
         from template_template.introspection import PipelineStage
         from template_template.viz_palette import stage_color
-        import matplotlib.colors as mcolors
 
         # 'core' is a recognized tag.
         stage = PipelineStage(
@@ -600,6 +654,7 @@ class TestStageColorFallback:
         # Should NOT be the default pipeline color.
         import matplotlib.colors as mc
         from template_template.viz_palette import ARCH_VIZ_COLORS
+
         default = mc.to_rgba(ARCH_VIZ_COLORS["pipeline"])
         # core maps to 'pipeline' color, so it equals default — but the branch IS taken.
         # What matters: no exception; the first recognized tag branch ran.

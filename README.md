@@ -29,7 +29,7 @@ hand-edit between the markers; update the config and regenerate (see the legend)
 
 Concept DOI: [10.5281/zenodo.20419007](https://doi.org/10.5281/zenodo.20419007) | Version DOI: [10.5281/zenodo.20976048](https://zenodo.org/records/20976048) | Repository: —
 
-Publishing surface — 12 platforms, 9 published:
+Publishing surface — 20 platforms, 9 published:
 
 | Platform | Tier | Status | Reference | Credentials |
 | --- | --- | --- | --- | --- |
@@ -45,10 +45,18 @@ Publishing surface — 12 platforms, 9 published:
 | netlify | first-class | ✅ published | [https://6a44431e738f1faeef68e5f6--tranquil-kleicha-0c9203.netlify.app](https://6a44431e738f1faeef68e5f6--tranquil-kleicha-0c9203.netlify.app) | `NETLIFY_AUTH_TOKEN` |
 | huggingface_hub | first-class | ✅ published | [https://huggingface.co/datasets/ActiveInference/template_template](https://huggingface.co/datasets/ActiveInference/template_template) | `HUGGINGFACE_TOKEN`, `HF_TOKEN` |
 | osf | first-class | ✅ published | [https://osf.io/byf23/](https://osf.io/byf23/) | `OSF_TOKEN` |
+| amazon_kdp | documented | 🟡 planned | — | `AMAZON_KDP_EMAIL`, `AMAZON_KDP_PASSWORD` |
+| google_play_books | documented | 🟡 planned | — | `GOOGLE_PLAY_BOOKS_SERVICE_ACCOUNT_JSON` |
+| gumroad | documented | 🟡 planned | — | `GUMROAD_ACCESS_TOKEN` |
+| leanpub | documented | 🟡 planned | — | `LEANPUB_API_KEY` |
+| lulu | documented | 🟡 planned | — | `LULU_CLIENT_KEY`, `LULU_CLIENT_SECRET` |
+| draft2digital | documented | 🟡 planned | — | `DRAFT2DIGITAL_API_TOKEN` |
+| stripe | documented | 🟡 planned | — | `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY` |
+| ingramspark | documented | 🟡 planned | — | `INGRAMSPARK_CLIENT_ID`, `INGRAMSPARK_CLIENT_SECRET` |
 
 _Keywords: reproducible research, infrastructure-as-code, steganography, cryptographic provenance, LaTeX rendering, modular infrastructure, publication integrity, zero-mock testing, thin orchestrator, two-layer architecture, FAIR4RS, research software engineering._
 
-_Status legend: ✅ published (durable identifier recorded in `config.yaml`) · ⚪ available (adapter implemented and locally verifiable) · 🟡 planned. This block is generated — edit `manuscript/config.yaml`, then regenerate with `uv run python -m infrastructure.publishing.status_report --project <path> --write`._
+_Status legend: ✅ published (durable identifier recorded in `config.yaml`) · 🔵 reserved (identifier reserved but not yet registered by final publication) · ⚪ available (adapter implemented and locally verifiable) · 🟡 planned. This block is generated — edit `manuscript/config.yaml`, then regenerate with `uv run python -m infrastructure.publishing.status_report --project <path> --write`._
 <!-- PUBLISHING-STATUS:END -->
 
 The 3 platforms still shown ⚪ available are not automatable to "published" with
@@ -69,8 +77,8 @@ git clone https://github.com/docxology/template
 cd template
 uv sync
 ./run.sh --project templates/template_template --pipeline --core-only
-uv run python scripts/04_validate_output.py --project templates/template_template
-uv run python scripts/05_copy_outputs.py --project templates/template_template
+uv run python scripts/pipeline/stage_04_validate.py --project templates/template_template
+uv run python scripts/pipeline/stage_05_copy.py --project templates/template_template
 ```
 
 Standalone repositories are publication mirrors for source, DOI metadata, and
@@ -123,7 +131,7 @@ See [`docs/VERIFICATION.md`](docs/VERIFICATION.md) for the full gate checklist.
 - Forward backlog: [`TODO.md`](TODO.md).
 - Copy-and-customize config: [`manuscript/config.yaml.example`](manuscript/config.yaml.example).
 - Project validation: `uv run pytest projects/templates/template_template/tests/ --cov=projects/templates/template_template/src --cov-fail-under=90`.
-- Repo drift validation: `uv run python scripts/check_template_drift.py --strict`.
+- Repo drift validation: `uv run python scripts/audit/check_template_drift.py --strict`.
 
 <!-- foam-orphan-nav:start (auto-managed: links sub-docs so they are reachable) -->
 

@@ -44,7 +44,7 @@ uv run python -c "
 from pathlib import Path
 from template_template.introspection import build_infrastructure_report
 r = build_infrastructure_report(Path('.'))
-assert r.pipeline_stages_declared >= 12
+assert r.pipeline_stages_declared >= 14
 assert r.pipeline_stages_core_only == 8
 assert r.pipeline_stages_default_full == 10
 print('OK:', r.pipeline_stages_declared, 'declared,', len(r.modules), 'modules')
@@ -56,8 +56,8 @@ Run from repo root with `projects/templates/template_template/src` on `PYTHONPAT
 ## 5. Full Pipeline (optional)
 
 ```bash
-uv run python scripts/02_run_analysis.py --project template_template
-uv run python scripts/03_render_pdf.py --project template_template
+uv run python scripts/pipeline/stage_02_analysis.py --project template_template
+uv run python scripts/pipeline/stage_03_render.py --project template_template
 ```
 
 ## Quick Checklist
@@ -68,7 +68,7 @@ uv run python scripts/03_render_pdf.py --project template_template
 | Figures | 4 PNG files in `output/figures/` |
 | Metrics | Valid JSON; pipeline keys present |
 | Manuscript | No unresolved `${` in numbered chapters |
-| Introspection | 12 declared stages, 8 core-only |
+| Introspection | 16 declared stages, 8 core-only |
 
 ## Common Issues
 

@@ -8,7 +8,7 @@ Self-referential publication describing `template/`; sources live under `project
 
 | File | Section |
 |------|---------|
-| `01_abstract.md` | Abstract |
+| `00_abstract.md` | Abstract |
 | `02_introduction.md` | Introduction |
 | `03a_architecture.md` | Methods: Architecture |
 | `03b_pipeline.md` | Methods: Pipeline DAG + orchestrators (`run.sh` / secure path) |
@@ -23,7 +23,7 @@ Self-referential publication describing `template/`; sources live under `project
 | `05e_future_conclusion.md` | Discussion: Futures + conclusions |
 | `06_infrastructure_modules.md` | Module reference |
 | `07_security_provenance.md` | Security |
-| `08a_appendix_pipeline.md` | Appendix · Pipeline DAG (12 YAML rows) |
+| `08a_appendix_pipeline.md` | Appendix · Pipeline DAG (16 YAML rows) |
 | `08b_appendix_config.md` | Appendix · Configuration |
 | `08c_appendix_directory.md` | Appendix · Directory sketch |
 | `08d_appendix_exemplars.md` | Appendix · Public exemplars |
@@ -38,7 +38,7 @@ Supporting assets: `preamble.md`, `config.yaml`, `references.bib`.
 |-------|---------|
 | `${module_count}` | Infrastructure subdirectories from live discovery |
 | `${importable_package_count}` | Subdirectories that are importable Python packages (carry `__init__.py`) |
-| `${pipeline_stages_declared}` | YAML stage count (12) |
+| `${pipeline_stages_declared}` | YAML stage count (16 as of 2026-07-07 — live re-derived, see `tests/regression/pinned_values/template_template.json`) |
 | `${pipeline_stages_default_full}` | Default full run (10) |
 | `${pipeline_stages_core_only}` | `--core-only` run (8) |
 | `${stage_count}` | Numbered `scripts/NN_*.py` files only |

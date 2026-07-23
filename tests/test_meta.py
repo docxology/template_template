@@ -157,12 +157,7 @@ class TestCountPipelineStages:
         assert len(stages) >= 5, f"Expected ≥5 stages, got {len(stages)}"
 
     def test_stages_are_sequential(self):
-        """Numbers must never regress; the root ``scripts/`` directory legitimately
-        reuses a numeric prefix across alternate/opt-in stage scripts (e.g.
-        ``08_connector_search.py`` and ``08_executable_bundle.py`` are different,
-        independently-tagged pipeline stages that happen to share "08" — see
-        ``infrastructure/core/pipeline/pipeline.yaml``), so strictly-increasing
-        is not the real invariant. Non-decreasing (filename sort order) is."""
+        """Canonical pipeline stage numbers must never regress."""
         stages = count_pipeline_stages(REPO_ROOT / "scripts")
         numbers = [s.number for s in stages]
         for i in range(1, len(numbers)):
@@ -211,6 +206,24 @@ class TestLoadPipelineStagesFromYaml:
         assert "bundle" in tags["Executable Bundle"]
         assert "archival" in tags["Archival Publication"]
 
+    def test_all_script_paths_resolve_to_real_files(self):
+        """Regression guard: every stage with a ``script:`` field in
+        pipeline.yaml must resolve to a file that actually exists on disk.
+
+        This previously silently failed: ``load_pipeline_stages_from_yaml``
+        re-prefixed the already repo-root-relative ``script:`` value (e.g.
+        "scripts/pipeline/stage_01_test.py") with an extra "scripts/" segment,
+        producing "scripts/scripts/pipeline/stage_01_test.py" — a path that
+        never resolves — for every single scripted stage.
+        """
+        stages = load_pipeline_stages_from_yaml(REPO_ROOT)
+        scripted_stages = [s for s in stages if s.script_name and s.script_name.endswith(".py")]
+        assert scripted_stages, "expected at least one stage with a script: field"
+        for stage in scripted_stages:
+            assert stage.script_path.is_file(), (
+                f"Stage {stage.name!r} script does not exist on disk: {stage.script_path}"
+            )
+
 
 class TestResolveTemplateRepoRoot:
     """Tests for ``resolve_template_repo_root``."""
@@ -232,7 +245,8 @@ class TestEnumerateNumberedScripts:
         stages = enumerate_numbered_scripts(REPO_ROOT / "scripts")
         assert stages
         for stage in stages:
-            assert stage.script_name[:2].isdigit()
+            assert stage.script_name.startswith("stage_")
+            assert stage.script_name[6:8].isdigit()
 
 
 class TestAnalyzeCoverageConfig:
@@ -338,7 +352,7 @@ class TestBuildInfrastructureReport:
 class TestInjectMetrics:
     """Tests for the inject_metrics module (Zero-Mock policy)."""
 
-    def _write_metrics(self, tmp_path, data: dict) -> "Path":
+    def _write_metrics(self, tmp_path: Path, data: dict[str, object]) -> Path:
         """Write *data* as JSON to a temp metrics file and return its path."""
         import json
 
@@ -456,7 +470,8 @@ class TestInjectMetrics:
         """render_all_chapters works on the real template manuscript directory."""
         manuscript_dir = PROJECT_DIR / "manuscript"
         out_dir = tmp_path / "rendered"
-        # Use minimal metrics so tokens resolve without running full analysis
+        # A small fixture is sufficient for this file-copy smoke test; the live
+        # round-trip test below enforces complete token resolution.
         metrics = {
             "module_count": "12",
             "total_infra_python_files": "150",
@@ -541,6 +556,9 @@ class TestInjectMetrics:
         assert int(loaded["pipeline_stages_core_only"]) == 8
         assert int(loaded["total_infra_python_files"]) >= 50
         assert loaded["infrastructure_version"] != "unknown"
+        rendered_dir = tmp_path / "rendered"
+        render_all_chapters(PROJECT_DIR / "manuscript", loaded, rendered_dir)
+        assert validate_all_resolved(rendered_dir) == []
 
 
 class TestSelfDescriptionPins:
@@ -552,7 +570,7 @@ class TestSelfDescriptionPins:
     """
 
     def _section06_text(self) -> str:
-        return (PROJECT_DIR / "manuscript" / "06_infrastructure_modules.md").read_text(encoding="utf-8")
+        return Path(PROJECT_DIR / "manuscript" / "06_infrastructure_modules.md").read_text(encoding="utf-8")
 
     def test_every_importable_package_has_a_section06_subsection(self):
         modules = discover_infrastructure_modules(REPO_ROOT)

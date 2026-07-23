@@ -20,7 +20,30 @@ from infrastructure.core.logging.utils import get_logger
 logger = get_logger(__name__)
 
 _EXCLUDED_DIRS = frozenset(
-    {"__pycache__", ".venv", ".git", ".cursor", ".pytest_cache", ".mypy_cache", "node_modules", "dist", "build"}
+    {
+        "__pycache__",
+        ".venv",
+        ".git",
+        ".cursor",
+        ".claude",
+        ".codex",
+        ".agents",
+        ".pytest_cache",
+        ".mypy_cache",
+        ".ruff_cache",
+        "node_modules",
+        "htmlcov",
+        "output",
+        "dist",
+        "build",
+        # Confidential/local-only lifecycle mirrors are outside public scope.
+        "working",
+        "ongoing",
+        "active",
+        "archive",
+        "published",
+        "other",
+    }
 )
 
 
@@ -322,15 +345,16 @@ def discover_projects(repo_root: Path, *, public_only: bool = True) -> list[Proj
 
 
 def enumerate_numbered_scripts(scripts_dir: Path) -> list[PipelineStage]:
-    """Enumerate numbered pipeline scripts in the root ``scripts/`` directory."""
+    """Enumerate numbered pipeline scripts from canonical ``scripts/pipeline/``."""
     if not scripts_dir.is_dir():
         logger.warning(f"Scripts directory not found: {scripts_dir}")
         return []
 
-    pattern = re.compile(r"^(\d{2})_(.+)\.py$")
+    pipeline_dir = scripts_dir / "pipeline" if (scripts_dir / "pipeline").is_dir() else scripts_dir
+    pattern = re.compile(r"^stage_(\d{2})_(.+)\.py$")
     stages: list[PipelineStage] = []
 
-    for script in sorted(scripts_dir.iterdir()):
+    for script in sorted(pipeline_dir.iterdir()):
         match = pattern.match(script.name)
         if match:
             stage_num = int(match.group(1))
@@ -364,7 +388,11 @@ def load_pipeline_stages_from_yaml(repo_root: Path) -> list[PipelineStage]:
     stages: list[PipelineStage] = []
     for index, stage in enumerate(data.get("stages", [])):
         script = stage.get("script") or ""
-        script_path = repo_root / "scripts" / script if script else repo_root
+        # ``script`` in pipeline.yaml is already repo-root-relative (e.g.
+        # "scripts/pipeline/stage_01_test.py") — do not re-prefix with
+        # "scripts/" here, or the resolved path doubles it
+        # ("scripts/scripts/pipeline/...") and never resolves to a real file.
+        script_path = repo_root / script if script else repo_root
         stages.append(
             PipelineStage(
                 number=index,

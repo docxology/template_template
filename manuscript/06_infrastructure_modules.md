@@ -36,6 +36,10 @@ Pinned images / compose scaffolding for reproducible CI + remote builds.
 
 Figure registries plus glossary tooling feeding manuscript automation.
 
+### `infrastructure.formal_contracts` (${module_formal_contracts_python_file_count} files)
+
+Typed, machine-checkable manuscript contract layer: frozen block model, evidence-tier policies, monoidal composition, and a fail-closed checker with stable `FORMAL.*` diagnostics.
+
 ### `infrastructure.fonds` (${module_fonds_python_file_count} files)
 
 Resource pool management for curated fonds (tracked reference datasets, bibliographic collections, and evidence corpora). Fonds mirror `projects/templates/` with git-tracked `templates/*` exemplars and sidecar-linked private lifecycle folders.
@@ -43,6 +47,14 @@ Resource pool management for curated fonds (tracked reference datasets, bibliogr
 ### `infrastructure.llm` (${module_llm_python_file_count} files)
 
 Ollama integrations, sanitization adapters, templated reviewer flows. **Literature ingestion now lives primarily in `search/literature` + citation helpers in `reference/`.**
+
+### `infrastructure.metadata` (${module_metadata_python_file_count} files)
+
+Shared publication-metadata leaves: repository-URL normalization
+(`normalized_repository_url`) and ebook metadata package generation (ONIX,
+`metadata.json`, EPUB OPF). Consumed by publishing, rendering, documentation,
+and project layers; extracted from `publishing` by RENDERING-LAYERING-1 so
+renderers import it without an inverted publishing dependency.
 
 ### `infrastructure.methods` (${module_methods_python_file_count} files)
 
@@ -94,7 +106,7 @@ Stability probing, benchmarking hooks—consumed heavily by optimization exempla
 
 ### `infrastructure.search` (${module_search_python_file_count} files)
 
-Two-tier search architecture: the `literature/` client stack (client.py, backends, caches) powers literature search with arXiv, Crossref, local, and Paperclip backends. `connectors/` exposes the built-in scientific database adapters through a uniform `ConnectorRegistry`; OpenAlex, UniProt, PDB, Semantic Scholar, European PMC, bioRxiv, and other registered adapters share list/search CLI commands with HTTP timeout, retry, and TTL caching. The live registry, not this prose, is authoritative for connector count.
+Two-tier search architecture: the `literature/` client stack (client.py, backends, caches) powers literature search with arXiv, Crossref, local, and Paperclip backends. `connectors/` exposes the built-in scientific database adapters through a uniform `ConnectorRegistry`; OpenAlex, UniProt, PDB, Semantic Scholar, European PMC, bioRxiv, and other registered adapters share list/search CLI commands with HTTP timeout, retry, and TTL caching. `monid/` provides an opt-in paid gateway (`discover` / `inspect` / `run`) with offline USD/1k pricing reference in `monid/PRICING.md`. `deep_research/` dispatches long-horizon provider-neutral manuscript research (PAID, opt-in). The live registry, not this prose, is authoritative for connector count.
 
 ### `infrastructure.sia` (${module_sia_python_file_count} files)
 
@@ -111,6 +123,14 @@ Watermark overlays, hashing companions triggered by secure pipeline path.
 ### `infrastructure.tools` (${module_tools_python_file_count} files)
 
 Invocable tool definitions registered by resource-pool governance; tools mirror `projects/templates/` with git-tracked `templates/*` exemplars.
+
+### `infrastructure.transmission` (${module_transmission_python_file_count} files)
+
+Rendered-release transmission leaves: LaTeX single-page bookends
+(`transmission_bookends`), page-check validation for Stage 04
+(`transmission_page_check`), barcode strips, figure embedding, and shared
+models. Consumed by the publishing release workflow; regular package so the
+documentation module-reference guard resolves nested refs on disk.
 
 ### `infrastructure.validation` (${module_validation_python_file_count} files)
 

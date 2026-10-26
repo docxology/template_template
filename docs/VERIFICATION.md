@@ -53,7 +53,9 @@ print('OK:', r.pipeline_stages_declared, 'declared,', len(r.modules), 'modules')
 
 Run from repo root with `projects/templates/template_template/src` on `PYTHONPATH` (pytest conftest handles this).
 
-## 5. Full Pipeline (optional)
+## 5. Full Pipeline (optional — monorepo checkout only)
+
+`scripts/pipeline/` ships with the `docxology/template` monorepo and is absent from this standalone mirror; run these stages in the monorepo root with the project selected as `templates/template_template`.
 
 ```bash
 uv run python scripts/pipeline/stage_02_analysis.py --project template_template

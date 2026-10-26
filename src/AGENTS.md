@@ -34,7 +34,7 @@ Module documentation: [`template_template/AGENTS.md`](template_template/AGENTS.m
 
 ## Publishing
 
-Release workflow: [`../../../docs/guides/publishing-guide.md`](../../../../docs/guides/publishing-guide.md) and [`../../../docs/guides/zenodo-doi-strategy.md`](../../../../docs/guides/zenodo-doi-strategy.md). Concept DOI lives in `manuscript/config.yaml` → `publication.doi`.
+Release workflow: [`docs/guides/publishing-guide.md`](https://github.com/docxology/template/blob/main/docs/guides/publishing-guide.md) and [`docs/guides/zenodo-doi-strategy.md`](https://github.com/docxology/template/blob/main/docs/guides/zenodo-doi-strategy.md) (monorepo docs). Concept DOI lives in `manuscript/config.yaml` → `publication.doi`.
 
 ## See Also
 

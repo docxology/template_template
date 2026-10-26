@@ -140,7 +140,7 @@ unavailable rather than silently promoted to a successful publication claim.
 - Forward backlog: [`TODO.md`](TODO.md).
 - Copy-and-customize config: [`manuscript/config.yaml.example`](manuscript/config.yaml.example).
 - Project validation: `uv run pytest projects/templates/template_template/tests/ --cov=projects/templates/template_template/src --cov-fail-under=90`.
-- Repo drift validation: `uv run python scripts/audit/check_template_drift.py --strict`.
+- Repo drift validation (monorepo checkout only — `scripts/audit/` ships with `docxology/template`): `uv run python scripts/audit/check_template_drift.py --strict`.
 
 <!-- foam-orphan-nav:start (hand-maintained: links sub-docs so they are reachable; no generator refreshes or validates this block) -->
 
@@ -172,5 +172,5 @@ Public metrics enumerate only the exact canonical qualified public roster paths 
 
 Default CI builds this template's wheel and runs focused behavioral tests. Further
 hardening can add outside-checkout provider installation, exhaustive source/runtime custody and release acceptance. The complete suites and native/provider acceptance remain opt-in;
-see [functional CI and hardening](../../../docs/development/ci.md) for commands
+see [functional CI and hardening](https://github.com/docxology/template/blob/main/docs/development/ci.md) for commands
 and the evidence each lane establishes.

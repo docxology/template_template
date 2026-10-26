@@ -76,7 +76,7 @@ and `paths.locate_repo_root`, `ImportError` branches in
 
 - **Project source**: 90%+ coverage for `projects/templates/template_template/src/`
 - **Enforcement**: The pipeline halts at Stage 01 if coverage drops below threshold
-- **Current**: 130 tests across 5 files, all passing (re-verify via `grep -c "^\s*def test_" tests/test_*.py`)
+- **Current**: counts are generated, not hand-maintained here — read `output/data/metrics.json` and re-verify with `grep -c "^\s*def test_" tests/test_*.py`.
 
 ## Running Tests
 

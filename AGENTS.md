@@ -4,7 +4,7 @@ Technical specification for the self-referential documentation project that anal
 
 **Location:** [`projects/templates/template_template/`](.) — public canonical exemplar (`infrastructure.project.public_scope`).
 
-Decision memory and verifier hardening follow [`docs/rules/memory_and_decision_records.md`](../../../docs/rules/memory_and_decision_records.md): use nearby `WHY:` comments only for surprising local choices, keep volatile counts generated, and add negative controls for verifier-like gates.
+Decision memory and verifier hardening follow the monorepo [`docs/rules/memory_and_decision_records.md`](https://github.com/docxology/template/blob/main/docs/rules/memory_and_decision_records.md): use nearby `WHY:` comments only for surprising local choices, keep volatile counts generated, and add negative controls for verifier-like gates.
 
 ## Purpose
 
@@ -35,7 +35,7 @@ quick reference commands, and pitfalls.
 
 # Publishing
 
-- [Publishing guide](../../../docs/guides/publishing-guide.md) · [Publishing module reference](../../../infrastructure/publishing/README.md) · [Zenodo DOI strategy](../../../docs/guides/zenodo-doi-strategy.md) · [Archival targets](../../../docs/maintenance/archival-targets.md)
+- Monorepo references ([`docxology/template`](https://github.com/docxology/template)): [Publishing guide](https://github.com/docxology/template/blob/main/docs/guides/publishing-guide.md) · [Publishing module reference](https://github.com/docxology/template/blob/main/infrastructure/publishing/README.md) · [Zenodo DOI strategy](https://github.com/docxology/template/blob/main/docs/guides/zenodo-doi-strategy.md) · [Archival targets](https://github.com/docxology/template/blob/main/docs/maintenance/archival-targets.md)
 - Concept DOI: `manuscript/config.yaml` → `publication.doi` (PDF cover); `version_doi` / `version_record` for latest Zenodo deposit
 - Standalone repo: [template_template GitHub repository](https://github.com/docxology/template_template)
 

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="pandoc 3.10" />
+  <meta name="generator" content="pandoc 3.13" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>03e_quality.md.web</title>
   <style>
@@ -11,7 +11,10 @@
     */
     html {
       color: #1a1a1a;
+      color: light-dark(#1a1a1a, #fdfdfd);
       background-color: #fdfdfd;
+      background-color: light-dark(#fdfdfd, #1a1a1a);
+      color-scheme: light dark;
     }
     body {
       margin: 0 auto;
@@ -36,12 +39,16 @@
     }
     @media print {
       html {
-        background-color: white;
+        color-scheme: light only;
       }
-      body {
+      html, body, pre, code {
         background-color: transparent;
+      }
+      body, a, a:visited, blockquote {
         color: black;
-        font-size: 12pt;
+      }
+      pre, code {
+        padding: 0;
       }
       p, h2, h3 {
         orphans: 3;
@@ -54,11 +61,8 @@
     p {
       margin: 1em 0;
     }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
+    a, a:visited {
+      color: inherit;
     }
     img {
       max-width: 100%;
@@ -87,8 +91,11 @@
     blockquote {
       margin: 1em 0 1em 1.7em;
       padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
+      border-left: 2px solid;
+      border-color: #e6e6e6;
+      border-color: light-dark(#e6e6e6, #4c4c4c);
       color: #606060;
+      color: light-dark(#606060, #b6b6b6);
     }
     code {
       white-space: pre-wrap;
@@ -112,7 +119,7 @@
     }
     hr {
       border: none;
-      border-top: 1px solid #1a1a1a;
+      border-top: 1px solid currentColor;
       height: 1px;
       margin: 1em 0;
     }
@@ -129,11 +136,11 @@
     }
     tbody {
       margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
+      border-top: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
     }
     th {
-      border-top: 1px solid #1a1a1a;
+      border-top: 1px solid currentColor;
       padding: 0.25em 0.5em 0.25em 0.5em;
     }
     td {
@@ -238,41 +245,447 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
+
+<link data-template-favicon rel="icon" href="favicon.ico">
+
+<style>
+:root {
+  --brand-1: #5b6ee0;
+  --web-bg: #f8f8f8;
+  --web-surface: #ffffff;
+  --web-text: #2c3e50;
+  --web-border: #bdc3c7;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-1: #7e8ce8;
+    --web-bg: #0f1420;
+    --web-surface: #161c2b;
+    --web-text: #e6eaf2;
+    --web-border: #2a3447;
+  }
+}
+.theorem-box {
+  border-left: 4px solid var(--brand-1);
+  background: var(--web-surface);
+  padding: 0.6em 1em;
+  margin: 1.1em 0;
+  border-radius: 0 4px 4px 0;
+}
+.theorem-box.definition { border-left-style: dashed; }
+.theorem-box > p:first-child { margin-top: 0; }
+.theorem-box > p:last-child { margin-bottom: 0; }
+.figure-long-description {
+  border: 1px solid var(--web-border);
+  border-radius: 4px;
+  margin-block: 0.75rem;
+  padding: 0.5rem 0.75rem;
+}
+.figure-long-description > summary { cursor: pointer; font-weight: 700; }
+.figure-long-description > p { max-width: 80ch; overflow-wrap: anywhere; }
+.figure-exact-values { max-width: 80ch; overflow-wrap: anywhere; }
+code { overflow-wrap: anywhere; word-break: break-word; }
+pre {
+  max-width: 100%;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+pre code { overflow-wrap: inherit; white-space: inherit; word-break: inherit; }
+div.sourceCode { max-width: 100%; overflow: visible; }
+pre.sourceCode { background: #2c3e50; color: #ecf0f1; }
+pre.sourceCode code,
+pre.sourceCode code span { color: inherit; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+mjx-container[display="true"] { max-width: 100%; overflow: visible; }
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+}
+.table-scroll:focus-visible {
+  outline: 3px solid var(--brand-1);
+  outline-offset: 3px;
+}
+.table-scroll > table { margin-block: 0; display: table; min-width: 100%; width: 100%; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+body {
+  font-family: 'Liberation Serif', 'Times New Roman', serif;
+  line-height: 1.6;
+  width: min(100%, 800px);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  color: #1a1a1a;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+main,
+nav,
+section,
+article,
+figure,
+figcaption {
+  min-width: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.65rem 0.9rem;
+  transform: translateY(-120%);
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.skip-link:visited {
+  color: #ffffff;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  body {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  figure img {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  overflow-wrap: anywhere;
+}
+
+code {
+  background-color: #ecf0f1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Liberation Mono', 'Courier New', monospace;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+pre {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 15px;
+  border-radius: 5px;
+  max-width: 100%;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  overflow-wrap: inherit;
+  white-space: inherit;
+  word-break: inherit;
+}
+
+div.sourceCode {
+  max-width: 100%;
+  overflow: visible;
+}
+
+pre.sourceCode {
+  background: #2c3e50;
+  color: #ecf0f1;
+}
+
+pre.sourceCode code,
+pre.sourceCode code span {
+  color: inherit;
+}
+
+pre > code.sourceCode {
+  white-space: pre-wrap;
+}
+
+pre > code.sourceCode > span {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+}
+
+.table-scroll:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 3px;
+}
+
+.table-scroll > table {
+  margin-block: 0;
+  display: table;
+  min-width: 100%;
+  width: 100%;
+}
+
+figure {
+  max-width: 100%;
+  margin: 1.5rem 0;
+}
+
+th, td {
+  border: 1px solid #bdc3c7;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #1f6f8b;
+  color: white;
+}
+
+/* Preserve a complete inline-code header within the table's scroll region. */
+th code {
+  color: inherit;
+  background-color: transparent;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  margin: 20px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: #b91c1c;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+  overflow-wrap: anywhere;
+}
+
+a:visited {
+  color: #8f1d1d;
+}
+
+a:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+a:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 3px;
+}
+
+.toc {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.toc a,
+#TOC a {
+  color: #b91c1c;
+  display: inline-block;
+  min-height: 28px;
+  line-height: 1.5;
+  padding-block: 2px;
+}
+
+.toc li,
+#TOC li {
+  margin-block: 1px;
+}
+
+.math {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.1em;
+}
+
+mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow: visible;
+  padding-bottom: 0.25rem;
+}
+
+.figure {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* A reading column keeps prose comfortable, but dense scientific figures need
+   a larger inspection surface.  The rendered image remains responsive and the
+   explicit link opens its source-resolution asset without changing the PDF. */
+.figure-full-size-link {
+  color: inherit;
+  display: block;
+  max-width: 100%;
+  text-align: center;
+}
+
+.figure-full-size-link img {
+  cursor: zoom-in;
+  margin-bottom: 0.45rem;
+}
+
+.figure-full-size-label {
+  color: #1f6f8b;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.figure-full-size-link:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 4px;
+}
+
+@media (min-width: 1000px) {
+  /* Wide figure links stay within the viewport but extend beyond the prose
+     column. Do not clip their labels at the narrower body boundary. */
+  body {
+    overflow-x: visible;
+  }
+
+  .figure-full-size-link {
+    left: 50%;
+    max-width: none;
+    position: relative;
+    transform: translateX(-50%);
+    width: min(1080px, calc(100vw - 3rem));
+  }
+}
+
+.figure-caption {
+  font-style: italic;
+  color: #4b5563;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.figure-long-description,
+.figure-exact-values {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+</style>
+<script data-template-source-font-loader src="assets/source-web-fonts.js"></script>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
 <h2 id="quality-assurance">Quality Assurance</h2>
 <h3 id="zero-mock-testing-policy">Zero-Mock Testing Policy</h3>
-<p>All tests use real methods exclusively [martin2008clean;
-meszaros2007xunit]. No <code>unittest.mock</code>, no
-<code>MagicMock</code>, no <code>patch</code> decorators. Tests that
-require external services (Ollama, network) use <code>pytest.mark</code>
-markers for conditional execution. The philosophical
-motivation—analogizing mock objects to Simmons et al.’s <em>researcher
-degrees of freedom</em> [simmons2011falsepositive] and the
-pre-registration remedy [nosek2018preregistration]—is developed fully in
-the <a href="05a_zeromock_tradeoff.md#the-zero-mock-tradeoff">Zero-Mock
-Tradeoff</a> discussion. To our knowledge, no prior research software
-engineering framework has formalized a zero-mock policy as an
-<em>architectural invariant enforced by pipeline gates</em>, where mock
-usage is not merely discouraged but structurally prevented from passing
-the build.</p>
-<p>The following example, drawn from the infrastructure test suite,
+<p>The repository policy prohibits mock frameworks such as
+<code>unittest.mock</code>, <code>MagicMock</code>, and
+<code>patch</code> decorators [martin2008clean; meszaros2007xunit]. A
+static gate rejects those imports, and a separate inventory surfaces
+semantic dependency-replacement patterns for review. Tests that require
+external services (Ollama or public networks) use explicit
+<code>pytest.mark</code> markers for conditional execution;
+deterministic network tests use real local HTTP servers. The
+philosophical motivation—analogizing excessive interaction mocking to
+Simmons et al.’s <em>researcher degrees of freedom</em>
+[simmons2011falsepositive] and the preregistration remedy
+[nosek2018preregistration]—is developed fully in the <a
+href="https://github.com/docxology/template/blob/main/projects/templates/template_template/manuscript/05a_zeromock_tradeoff.md#the-zero-mock-tradeoff">Zero-Mock
+Tradeoff</a> discussion.</p>
+<p>The following example, drawn from this meta-project’s own suite,
 illustrates zero-mock compliance:</p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_discover_infrastructure_modules_returns_nonempty(tmp_path):</span>
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_core_module_present(<span class="va">self</span>):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Real filesystem, real YAML parsing — no MagicMock anywhere</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    modules <span class="op">=</span> discover_infrastructure_modules(REPO_ROOT)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">len</span>(modules) <span class="op">&gt;=</span> <span class="dv">8</span>           <span class="co"># actual subpackages on disk</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">any</span>(m.name <span class="op">==</span> <span class="st">&quot;core&quot;</span> <span class="cf">for</span> m <span class="kw">in</span> modules)</span></code></pre></div>
-<p>This test exercises the real
-<code>discover_infrastructure_modules</code> function against the real
-filesystem. There are no mock objects substituting for the directory
-walk, no patched YAML parsers, and no synthetic return values—the test
-passes only if the infrastructure modules genuinely exist and are
-discoverable at their expected paths.</p>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    names <span class="op">=</span> [m.name <span class="cf">for</span> m <span class="kw">in</span> modules]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">&quot;core&quot;</span> <span class="kw">in</span> names, <span class="ss">f&quot;&#39;core&#39; not found in </span><span class="sc">{</span>names<span class="sc">}</span><span class="ss">&quot;</span></span></code></pre></div>
+<p>This test
+(<code>tests/core/test_meta.py::TestDiscoverInfrastructureModules::test_core_module_present</code>)
+exercises the real <code>discover_infrastructure_modules</code> function
+against the real repository root. There are no mock objects substituting
+for the directory walk, no patched YAML parsers, and no synthetic return
+values—the test passes only if the infrastructure modules genuinely
+exist and are discoverable at their expected paths.</p>
 <h3 id="coverage-thresholds">Coverage Thresholds</h3>
 <p>The pipeline enforces two coverage tiers:</p>
-<table>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Scrollable data table"><table data-responsive-table="true">
 <colgroup>
 <col style="width: 14%" />
 <col style="width: 16%" />
@@ -294,33 +707,36 @@ discoverable at their expected paths.</p>
 <td>Project</td>
 <td><code>projects/*/src/</code></td>
 <td style="text-align: center;">90%</td>
-<td style="text-align: center;">90%+</td>
+<td style="text-align: center;">Reported by the current test
+artifact</td>
 <td>Domain code must be thoroughly validated</td>
 </tr>
 <tr>
 <td>Infrastructure</td>
 <td><code>infrastructure/</code></td>
 <td style="text-align: center;">60%</td>
-<td style="text-align: center;">83%+</td>
-<td>Broader scope, some code unreachable in test</td>
+<td style="text-align: center;">Reported by the current test
+artifact</td>
+<td>Broader shared surface</td>
 </tr>
 </tbody>
-</table>
-<p>These thresholds are enforced at Stage 01 of the pipeline. If project
-test coverage falls below 90%, the pipeline halts and refuses to produce
-a PDF—ensuring that no published artifact is backed by undertested
-source code.</p>
+</table></div>
+<p>These thresholds are enforced at Stage 01 of the pipeline. A project
+test run below its declared 90% floor fails before downstream
+publication stages. This manuscript deliberately does not quote an
+achieved coverage percentage unless a fresh coverage artifact supplies
+it.</p>
 <h3 id="test-suite-composition">Test Suite Composition</h3>
 <p>The repository maintains three test suites:</p>
 <ul>
-<li><strong>Infrastructure tests</strong> (<code>tests/</code>): ~7,780
-tests validating the 23 infrastructure subdirectories, covering logging,
+<li><strong>Infrastructure tests</strong> (<code>tests/</code>): ~12,564
+tests validating the 31 infrastructure subdirectories, covering logging,
 rendering, validation, steganography, reporting, and LLM
 integration.</li>
 <li><strong>Project tests</strong> (<code>projects/*/tests/</code>):
 Per-project suites whose sizes scale with each exemplar’s surface area —
-for example 296 tests in <code>template_autoresearch_project</code> and
-231 in <code>template_code_project</code>, with several exemplars larger
+for example 318 tests in <code>template_autoresearch_project</code> and
+263 in <code>template_code_project</code>, with several exemplars larger
 still. (A true min/max span would require dedicated
 <code>project_test_count_min</code>/<code>project_test_count_max</code>
 tokens in <code>build_manuscript_metrics_dict</code>; see the
@@ -333,20 +749,23 @@ PDF.</li>
 <h3 id="visualization-standards">Visualization Standards</h3>
 <p>All generated figures must meet accessibility requirements:</p>
 <ul>
-<li>Minimum 16pt font size for all text elements (the accessibility
-floor).</li>
+<li>Shared 16pt font constant for primary text elements, with compact
+annotations derived from that constant.</li>
 <li>Colorblind-safe palettes (IBM Design / Wong palette) with
 high-contrast fallbacks.</li>
-<li>150–300 DPI rendering for publication quality.</li>
+<li>200 DPI PNG rendering, sourced from the same constant used by every
+figure writer.</li>
 <li>Descriptive axis labels and figure titles.</li>
 <li>No reliance on color alone to convey information—redundant encoding
 via shape, pattern, or annotation is used where applicable.</li>
 </ul>
-<p>These standards are validated by the
-<code>test_architecture_viz.py</code> test suite, which verifies that
-generated figures exist, have non-zero file size, and conform to
-expected output specifications. The 16pt font floor ensures readability
-in both screen and print contexts, while the DPI range balances file
-size against reproduction fidelity.</p>
+<p>The <code>tests/figures/test_architecture_viz.py</code> suite
+verifies that each real figure generator writes a non-empty PNG and that
+the comparative matrix has its declared shape and value domain. The font
+and render-resolution values above are injected from
+<code>src/template_template/figures/viz_palette.py</code>, preventing
+prose and implementation from drifting even though visual accessibility
+still requires human inspection of rendered figures.</p>
+</main>
 </body>
 </html>

@@ -1,0 +1,758 @@
+{
+  "schema_version": "1.0",
+  "png_sha256": "52d4be0ba7b1fb9e76fc213f73ca6cfc6cfb738c75544b4101277adb3929acbf",
+  "width_px": 2800,
+  "height_px": 4464,
+  "dpi": 200,
+  "minimum_label_px": 44.44444444444444,
+  "text_measurements": [
+    {
+      "text": "412 [ARS\u00b7]",
+      "bbox_px": [
+        2173.790775,
+        4092.278035,
+        2474.790775,
+        4142.289754
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "201 [ARS\u00b7]",
+      "bbox_px": [
+        1303.249278,
+        3974.381382,
+        1604.249278,
+        4024.3931
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "121 [ARS\u00b7]",
+      "bbox_px": [
+        973.186152,
+        3856.484729,
+        1274.186152,
+        3906.496447
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "116 [ARS\u00b7]",
+      "bbox_px": [
+        952.557206,
+        3738.588075,
+        1253.557206,
+        3788.599794
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "86 [ARS\u00b7]",
+      "bbox_px": [
+        828.783534,
+        3620.691422,
+        1094.783534,
+        3670.703141
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "85 [ARS\u00b7]",
+      "bbox_px": [
+        824.657745,
+        3502.794769,
+        1090.657745,
+        3552.806488
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "77 [ARS\u00b7]",
+      "bbox_px": [
+        791.651432,
+        3384.898116,
+        1057.651432,
+        3434.909835
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "57 [ARS\u00b7]",
+      "bbox_px": [
+        709.13565,
+        3267.001463,
+        975.13565,
+        3317.013182
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "23 [ARS\u00b7]",
+      "bbox_px": [
+        568.858821,
+        3149.10481,
+        834.858821,
+        3199.116529
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "16 [ARS\u00b7]",
+      "bbox_px": [
+        539.978298,
+        3031.208157,
+        805.978298,
+        3081.219875
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "14 [ARS\u00b7]",
+      "bbox_px": [
+        531.72672,
+        2913.311504,
+        797.72672,
+        2963.323222
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "14 [ARS\u00b7]",
+      "bbox_px": [
+        531.72672,
+        2795.41485,
+        797.72672,
+        2845.426569
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "13 [ARS\u00b7]",
+      "bbox_px": [
+        527.60093,
+        2677.518197,
+        793.60093,
+        2727.529916
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "11 [ARS\u00b7]",
+      "bbox_px": [
+        519.349352,
+        2559.621544,
+        785.349352,
+        2609.633263
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "10 [ARS\u00b7]",
+      "bbox_px": [
+        515.223563,
+        2441.724891,
+        781.223563,
+        2491.73661
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "10 [ARS\u00b7]",
+      "bbox_px": [
+        515.223563,
+        2323.828238,
+        781.223563,
+        2373.839957
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "9 [ARS\u00b7]",
+      "bbox_px": [
+        511.097774,
+        2205.931585,
+        742.097774,
+        2255.943303
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "9 [ARS\u00b7]",
+      "bbox_px": [
+        511.097774,
+        2088.034932,
+        742.097774,
+        2138.04665
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "8 [ARS\u00b7]",
+      "bbox_px": [
+        506.971985,
+        1970.138278,
+        737.971985,
+        2020.149997
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "6 [ARS\u00b7]",
+      "bbox_px": [
+        498.720407,
+        1852.241625,
+        729.720407,
+        1902.253344
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "6 [ARS\u00b7]",
+      "bbox_px": [
+        498.720407,
+        1734.344972,
+        729.720407,
+        1784.356691
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "6 [ARS\u00b7]",
+      "bbox_px": [
+        498.720407,
+        1616.448319,
+        729.720407,
+        1666.460038
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "6 [ARS\u00b7]",
+      "bbox_px": [
+        498.720407,
+        1498.551666,
+        729.720407,
+        1548.563385
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "5 [ARS\u00b7]",
+      "bbox_px": [
+        494.594618,
+        1380.655013,
+        725.594618,
+        1430.666732
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "4 [ARS\u00b7]",
+      "bbox_px": [
+        490.468829,
+        1262.75836,
+        721.468829,
+        1312.770078
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "4 [ARS\u00b7]",
+      "bbox_px": [
+        490.468829,
+        1144.861706,
+        721.468829,
+        1194.873425
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "3 [ARS\u00b7]",
+      "bbox_px": [
+        486.34304,
+        1026.965053,
+        717.34304,
+        1076.976772
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "3 [ARS\u00b7]",
+      "bbox_px": [
+        486.34304,
+        909.0684,
+        717.34304,
+        959.080119
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "0 [ARS\u00b7]",
+      "bbox_px": [
+        473.965672,
+        791.171747,
+        704.965672,
+        841.183466
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "0 [ARS\u00b7]",
+      "bbox_px": [
+        473.965672,
+        673.275094,
+        704.965672,
+        723.286813
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "0 [AR\u00b7\u00b7]",
+      "bbox_px": [
+        473.965672,
+        555.378441,
+        687.965672,
+        605.39016
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "Python Source Files",
+      "bbox_px": [
+        1373.37066,
+        234.445972,
+        1865.198785,
+        278.890417
+      ],
+      "font_pixels": 44.44444444444444,
+      "minimum_label_px": 44.44444444444444
+    },
+    {
+      "text": "0",
+      "bbox_px": [
+        455.902778,
+        290.001528,
+        487.902778,
+        340.001528
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "206",
+      "bbox_px": [
+        1273.815329,
+        290.001528,
+        1369.815329,
+        340.001528
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "412",
+      "bbox_px": [
+        2123.727881,
+        290.001528,
+        2219.727881,
+        340.001528
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "reporting",
+      "bbox_px": [
+        219.552083,
+        4086.272175,
+        452.458333,
+        4136.283894
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "core",
+      "bbox_px": [
+        343.552083,
+        3968.381382,
+        452.458333,
+        4018.381382
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "rendering",
+      "bbox_px": [
+        207.552083,
+        3850.478869,
+        452.458333,
+        3900.490588
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "project",
+      "bbox_px": [
+        277.552083,
+        3732.582216,
+        452.458333,
+        3782.593935
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "validation",
+      "bbox_px": [
+        203.458333,
+        3614.685563,
+        452.458333,
+        3664.697282
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "publishing",
+      "bbox_px": [
+        192.458333,
+        3496.78891,
+        452.458333,
+        3546.800629
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "search",
+      "bbox_px": [
+        285.552083,
+        3378.892257,
+        452.458333,
+        3428.903975
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "llm",
+      "bbox_px": [
+        375.458333,
+        3260.995604,
+        452.458333,
+        3311.007322
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "documentation",
+      "bbox_px": [
+        70.458333,
+        3143.09895,
+        452.458333,
+        3193.110669
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "reference",
+      "bbox_px": [
+        211.645833,
+        3025.202297,
+        452.458333,
+        3075.214016
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "doctor",
+      "bbox_px": [
+        290.458333,
+        2907.305644,
+        452.458333,
+        2957.317363
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "orchestration",
+      "bbox_px": [
+        116.552083,
+        2789.408991,
+        452.458333,
+        2839.42071
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "steganography",
+      "bbox_px": [
+        71.458333,
+        2671.512338,
+        452.458333,
+        2721.524057
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "autoresearch",
+      "bbox_px": [
+        120.645833,
+        2553.615685,
+        452.458333,
+        2603.627403
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "methods",
+      "bbox_px": [
+        231.458333,
+        2435.719032,
+        452.458333,
+        2485.73075
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "sia",
+      "bbox_px": [
+        381.458333,
+        2317.822378,
+        452.458333,
+        2367.834097
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "prose",
+      "bbox_px": [
+        312.552083,
+        2199.931585,
+        452.458333,
+        2249.931585
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "provenance",
+      "bbox_px": [
+        155.552083,
+        2082.034932,
+        452.458333,
+        2132.034932
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "skills",
+      "bbox_px": [
+        329.458333,
+        1964.132419,
+        452.458333,
+        2014.144138
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "fonds",
+      "bbox_px": [
+        313.458333,
+        1846.235766,
+        452.458333,
+        1896.247485
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "rules",
+      "bbox_px": [
+        328.458333,
+        1728.339113,
+        452.458333,
+        1778.350832
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "tools",
+      "bbox_px": [
+        330.458333,
+        1610.44246,
+        452.458333,
+        1660.454178
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "transmission",
+      "bbox_px": [
+        130.458333,
+        1492.545807,
+        452.458333,
+        1542.557525
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "formal_contracts",
+      "bbox_px": [
+        29.333333,
+        1374.649153,
+        452.458333,
+        1424.660872
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "benchmark",
+      "bbox_px": [
+        168.458333,
+        1256.7525,
+        452.458333,
+        1306.764219
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "scientific",
+      "bbox_px": [
+        229.458333,
+        1138.855847,
+        452.458333,
+        1188.867566
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "metadata",
+      "bbox_px": [
+        207.458333,
+        1020.959194,
+        452.458333,
+        1070.970913
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "research",
+      "bbox_px": [
+        234.645833,
+        903.062541,
+        452.458333,
+        953.07426
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "config",
+      "bbox_px": [
+        298.458333,
+        785.165888,
+        452.458333,
+        835.177606
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "docker",
+      "bbox_px": [
+        283.239583,
+        667.269235,
+        452.458333,
+        717.280953
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "logrotate.d",
+      "bbox_px": [
+        174.552083,
+        549.372581,
+        452.458333,
+        599.3843
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    },
+    {
+      "text": "Infrastructure Module Inventory",
+      "bbox_px": [
+        1066.284722,
+        4367.985677,
+        2172.284722,
+        4429.096788
+      ],
+      "font_pixels": 61.111111111111114,
+      "minimum_label_px": 61.111111111110404
+    },
+    {
+      "text": "Total: 1335 Python files \u00b7 A=AGENTS R=README S=SKILL P=PAI",
+      "bbox_px": [
+        592.289062,
+        53.568,
+        2207.710938,
+        103.579719
+      ],
+      "font_pixels": 50.0,
+      "minimum_label_px": 50.0
+    }
+  ]
+}

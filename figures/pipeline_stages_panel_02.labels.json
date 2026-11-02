@@ -1,0 +1,186 @@
+{
+  "schema_version": "1.0",
+  "png_sha256": "b223121468b866403b9c1c51f4ca3d01e9a1e0ba16e8490d48c83eaf16ad066e",
+  "width_px": 1800,
+  "height_px": 1320,
+  "dpi": 200,
+  "minimum_label_px": 100.0,
+  "text_measurements": [
+    {
+      "text": "Stages 6\u201310 of 17",
+      "bbox_px": [
+        345.0,
+        1188.888889,
+        1455.0,
+        1300.0
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111109
+    },
+    {
+      "text": "6",
+      "bbox_px": [
+        51.5,
+        984.444444,
+        128.5,
+        1095.555556
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111111
+    },
+    {
+      "text": "Connector\nSearch",
+      "bbox_px": [
+        413.5,
+        928.888889,
+        986.5,
+        1151.111111
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111111
+    },
+    {
+      "text": "science\nlive",
+      "bbox_px": [
+        1291.5,
+        940.0,
+        1668.5,
+        1140.0
+      ],
+      "font_pixels": 100.0,
+      "minimum_label_px": 100.0
+    },
+    {
+      "text": "7",
+      "bbox_px": [
+        51.5,
+        754.444444,
+        128.5,
+        865.555556
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111109
+    },
+    {
+      "text": "Provenance\nRecord",
+      "bbox_px": [
+        376.195312,
+        698.888889,
+        1023.804688,
+        921.111111
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111111
+    },
+    {
+      "text": "provenance",
+      "bbox_px": [
+        1186.101562,
+        760.0,
+        1773.898438,
+        860.0
+      ],
+      "font_pixels": 100.0,
+      "minimum_label_px": 100.0
+    },
+    {
+      "text": "8",
+      "bbox_px": [
+        51.5,
+        524.444444,
+        128.5,
+        635.555556
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111109
+    },
+    {
+      "text": "PDF Rendering",
+      "bbox_px": [
+        291.992188,
+        524.444444,
+        1108.007812,
+        635.555556
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111109
+    },
+    {
+      "text": "core",
+      "bbox_px": [
+        1371.601562,
+        530.0,
+        1588.398438,
+        630.0
+      ],
+      "font_pixels": 100.0,
+      "minimum_label_px": 100.0
+    },
+    {
+      "text": "9",
+      "bbox_px": [
+        51.5,
+        294.444444,
+        128.5,
+        405.555556
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111109
+    },
+    {
+      "text": "Output\nValidation",
+      "bbox_px": [
+        425.8125,
+        238.888889,
+        974.1875,
+        461.111111
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111111
+    },
+    {
+      "text": "core",
+      "bbox_px": [
+        1371.601562,
+        300.0,
+        1588.398438,
+        400.0
+      ],
+      "font_pixels": 100.0,
+      "minimum_label_px": 100.0
+    },
+    {
+      "text": "10",
+      "bbox_px": [
+        13.0,
+        64.444444,
+        167.0,
+        175.555556
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.1111111111111
+    },
+    {
+      "text": "LLM Manuscript\nReview",
+      "bbox_px": [
+        265.5,
+        8.888889,
+        1134.5,
+        231.111111
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111111
+    },
+    {
+      "text": "llm\nlive",
+      "bbox_px": [
+        1391.5,
+        20.0,
+        1568.5,
+        220.0
+      ],
+      "font_pixels": 100.0,
+      "minimum_label_px": 100.0
+    }
+  ]
+}

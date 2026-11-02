@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "png_sha256": "8d5f8955c5aecb1814af4aadc75e27181a08141ba24ac0a266fefd4da2615852",
+  "width_px": 1800,
+  "height_px": 1320,
+  "dpi": 200,
+  "minimum_label_px": 100.0,
+  "text_measurements": [
+    {
+      "text": "Stages 16\u201317 of 17",
+      "bbox_px": [
+        306.5,
+        1188.888889,
+        1493.5,
+        1300.0
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111109
+    },
+    {
+      "text": "16",
+      "bbox_px": [
+        13.0,
+        984.444444,
+        167.0,
+        1095.555556
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111111
+    },
+    {
+      "text": "Executable\nBundle",
+      "bbox_px": [
+        393.710938,
+        928.888889,
+        1006.289062,
+        1151.111111
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111111
+    },
+    {
+      "text": "bundle",
+      "bbox_px": [
+        1309.0,
+        990.0,
+        1651.0,
+        1090.0
+      ],
+      "font_pixels": 100.0,
+      "minimum_label_px": 100.0
+    },
+    {
+      "text": "17",
+      "bbox_px": [
+        13.0,
+        754.444444,
+        167.0,
+        865.555556
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111109
+    },
+    {
+      "text": "Archival\nPublication",
+      "bbox_px": [
+        395.476562,
+        698.888889,
+        1004.523438,
+        921.111111
+      ],
+      "font_pixels": 111.11111111111111,
+      "minimum_label_px": 111.11111111111111
+    },
+    {
+      "text": "archival\nlive",
+      "bbox_px": [
+        1283.101562,
+        710.0,
+        1676.898438,
+        910.0
+      ],
+      "font_pixels": 100.0,
+      "minimum_label_px": 100.0
+    }
+  ]
+}

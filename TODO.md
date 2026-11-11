@@ -104,3 +104,43 @@ No active rows are currently scoped at this size.
 
 Rows remain active until the acceptance command and negative control pass in the same source revision.
 A blocked row is a deliberate boundary, not a skipped success.
+
+## Workflowz review — 2026-11-10
+
+- [ ] **WZ-20261110-01 — P2: Pin and actually validate the Python 3.15 development lane.**
+  - **Evidence:** `.python-version:1` requests only `3.15`, while `pyproject.toml:57` declares tested versions only through 3.14. This is a validation/reproducibility gap, not evidence that any dependency is outdated.
+  - **Observable outcome:** Set the development request to `3.15.2`; after the complete locked own-suite passes on that exact interpreter, add `3.15` to `tested_python_versions`. Keep the existing `requires-python` range unchanged. If a locked dependency or the declared SDK context actually prevents the run, record that concrete constraint and do not claim a tested 3.15 cell.
+  - **Acceptance probe (from repository root, in the declared prepared SDK/dev environment):**
+    ```bash
+    uv run --locked --no-sync --python 3.15.2 python -c 'import sys; assert sys.version_info[:3] == (3, 15, 2), sys.version'
+    uv run --locked --no-sync --python 3.15.2 python -m pytest
+    ```
+    The first command must report the exact selected interpreter through its assertion and the second must finish all collected tests successfully.
+  - **Negative control:** `uv run --locked --no-sync --python 3.14 python -c 'import sys; assert sys.version_info[:3] == (3, 15, 2), sys.version'` must fail the version assertion when that interpreter is available; a missing dependency or missing interpreter must not be recorded as a passing 3.15.2 validation.
+  - **Dependencies/constraints:** Requires Python 3.15.2, the locked dev dependencies, and the local/admitted `research-project-template` arrangement described at `pyproject.toml:50-52`. Do not relax the lock or silently upgrade a dependency to make the cell pass.
+
+- [ ] **WZ-20261110-02 — P2: Restore the intended release C flags in the pinned Kmyth SGX build.**
+  - **Evidence:** `_template_resources/infrastructure/steganography/kmyth/sgx/Makefile:111` appends release definitions to `GX_COMMON_CFLAGS`, whereas the initialized and consumed variable is `SGX_COMMON_CFLAGS` at `_template_resources/infrastructure/steganography/kmyth/sgx/Makefile:95` and `_template_resources/infrastructure/steganography/kmyth/sgx/Makefile:96`. Consequently the ordinary release branch does not add the documented `-DNDEBUG -UEDEBUG` flags.
+  - **Observable outcome:** The release branch updates `SGX_COMMON_CFLAGS`, while debug and prerelease branches retain their existing distinct flags. Carry the one-line correction as a documented downstream patch or an explicitly reviewed upstream fix.
+  - **Acceptance probe (from repository root):**
+    ```bash
+    make -s -C _template_resources/infrastructure/steganography/kmyth/sgx \
+      --eval='print-review-cflags: ; @echo $(SGX_COMMON_CFLAGS)' \
+      print-review-cflags SGX_DEBUG=0 SGX_PRERELEASE=0
+    ```
+    The emitted release flags must include both `-DNDEBUG` and `-UEDEBUG`, and must not include `-DDEBUG`.
+  - **Negative control:** Repeat with `SGX_DEBUG=1 SGX_PRERELEASE=0`; that output must include `-DDEBUG` and `-UNDEBUG`, demonstrating that the release definitions were not indiscriminately applied to every build mode.
+  - **Dependencies/constraints:** GNU make is sufficient for this build-contract probe; no SGX compiler or hardware is required. Kmyth is pinned third-party source (`AGENTS.md:97`), so preserve upstream/version provenance and do not perform an unrelated vendor upgrade.
+
+- [ ] **WZ-20261110-03 — P3: Collect network-test headers from the network-test include directory.**
+  - **Evidence:** `_template_resources/infrastructure/steganography/kmyth/Makefile:159` defines `TEST_NETWORK_INC_DIR` as `$(TEST_INC_DIR)/network`, but `_template_resources/infrastructure/steganography/kmyth/Makefile:160` expands `TEST_NETWORK_HEADERS` using `TEST_UTIL_INC_DIR`. The declared network-header set can therefore be empty or sourced from an unrelated directory.
+  - **Observable outcome:** `TEST_NETWORK_HEADERS` expands the headers under `TEST_NETWORK_INC_DIR`; changing the unrelated utility include variable no longer changes that network-header list.
+  - **Acceptance probe (from repository root):**
+    ```bash
+    make -s -C _template_resources/infrastructure/steganography/kmyth \
+      --eval='check-review-network-headers: ; @test "$(TEST_NETWORK_HEADERS)" = "$(wildcard $(TEST_NETWORK_INC_DIR)/*.h)"' \
+      check-review-network-headers TEST_UTIL_INC_DIR=/nonexistent-review-path
+    ```
+    With the checked-in network test headers present, this make-based equality check must exit successfully and remain independent of the deliberately invalid utility path.
+  - **Negative control:** Restoring the `TEST_UTIL_INC_DIR` wildcard must make the same probe fail when `test/include/network` contains headers and `/nonexistent-review-path` does not; an empty genuine network-header directory must not be mistaken for coverage of this control.
+  - **Dependencies/constraints:** Requires GNU make and the checked-in network test headers, not a TPM build. As with WZ-20261110-02, preserve the pinned Kmyth provenance noted at `AGENTS.md:97` and avoid an unrelated third-party refresh.

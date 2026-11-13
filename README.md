@@ -13,10 +13,10 @@ live (autopoietic: the paper regenerates itself from the code it describes).
 It is the reference for binding `${var}` metric tokens to introspection code.
 
 If you are studying an external subject rather than the repo, start from
-[`template_code_project`](../template_code_project/) (computational research)
-or [`template_prose_project`](../template_prose_project/) (editorial
+[`template_code_project`](https://github.com/docxology/template_code_project) (computational research)
+or [`template_prose_project`](https://github.com/docxology/template_prose_project) (editorial
 pipeline). Full roster:
-[`projects/AGENTS.md`](../../AGENTS.md#permanent-canonical-exemplars).
+[`projects/AGENTS.md`](https://github.com/docxology/template/blob/main/projects/AGENTS.md#permanent-canonical-exemplars).
 
 ## Publication and rendering
 

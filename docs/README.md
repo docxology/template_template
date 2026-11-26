@@ -1,35 +1,20 @@
 # Template Meta-Project Documentation
 
-Technical documentation for the `template` meta-project — the self-referential study that describes the `template/` architecture, built by the same pipeline it documents.
+This project measures the Docxology Template repository and builds a manuscript
+describing its architecture, pipeline, and documentation practices.
 
-## Quick Links
+| Task | Guide |
+| --- | --- |
+| Set up the SDK and complete source data, then run the test suite | [Verification](VERIFICATION.md) |
+| Generate live evidence and render the publication | [Rendering pipeline](rendering_pipeline.md) |
+| Edit paper chapters, citations, or configuration | [Manuscript source](manuscript/README.md), [authoring guide](manuscript_guide.md) |
+| Understand the project code and evidence contracts | [Architecture](architecture.md), [source](source.md), [package](package.md), [data](data.md) |
+| Locate producers and generated figures | [Scripts](scripts.md), [figures](figures.md) |
+| Find the test plan and failure diagnostics | [Test suite](testing/README.md), [test philosophy](testing_philosophy.md), [troubleshooting](troubleshooting.md) |
+| Fork the project or review publishing history | [Standalone guide](standalone.md), [publication consistency review](publication_consistency_review.md), [backlog](backlog.md) |
+| Find repository conventions for changes | [Agent guidance](AGENTS.md), [workflow](agent_instructions.md) |
 
-| Document | Purpose |
-|----------|---------|
-| [AGENTS.md](AGENTS.md) | Directory index and AI agent instructions |
-| [VERIFICATION.md](VERIFICATION.md) | Sub-minute verification routine |
-| [architecture.md](architecture.md) | Project architecture and data flow |
-| [testing_philosophy.md](testing_philosophy.md) | Zero-mock standard and test categories |
-| [manuscript_guide.md](manuscript_guide.md) | 21-file manuscript structure and variable injection |
-| [rendering_pipeline.md](rendering_pipeline.md) | Stage 02 → Stage 03 rendering flow |
-
-## Getting Started
-
-```bash
-# Run tests
-PYTHONPATH=. uv run pytest projects/templates/template_template/tests/ -v
-
-# Generate figures + metrics + rendered manuscript
-PYTHONPATH=. uv run python projects/templates/template_template/scripts/generate_architecture_viz.py
-PYTHONPATH=. uv run python projects/templates/template_template/scripts/generate_manuscript_metrics.py
-
-# Full pipeline
-./run.sh  # Select template_template, then Core pipeline
-```
-
-## Key Concepts
-
-- **Self-referential**: This project's manuscript describes the infrastructure it runs on
-- **Variable injection**: `${variable}` tokens in manuscript are replaced with live metrics at build time
-- **Zero-mock**: Every test runs against the real filesystem and real infrastructure; the collected total is in the monorepo's [`docs/_generated/COUNTS.md`](https://github.com/docxology/template/blob/main/docs/_generated/COUNTS.md)
-- **Four figures**: Architecture overview, pipeline stages, module inventory, comparative matrix — all auto-generated from live data
+The separately exported `_template_resources/` tree holds Template SDK resources.
+The tracked `output/` tree contains a publication snapshot. The export and publication-tree receipts
+record the imported source and output snapshot. See
+[verification](VERIFICATION.md) for a fresh build in an isolated checkout.

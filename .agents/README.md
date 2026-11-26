@@ -10,5 +10,5 @@ agent scaffolding.
 | [`skills/template-template/SKILL.md`](skills/template-template/SKILL.md) | The operating skill for this exemplar — load it when working inside the project |
 
 See the shared exemplar contract in
-[`projects/templates/AGENTS.md`](../../AGENTS.md) for the canonical
+[`projects/AGENTS.md`](https://github.com/docxology/template/blob/87704feae0a4490ef7dad9c931d268e8c30273c2/projects/AGENTS.md) for the canonical
 agent-facing surfaces every public template carries.

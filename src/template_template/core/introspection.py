@@ -17,6 +17,8 @@ import yaml
 
 from infrastructure.core.logging.utils import get_logger
 
+from .paths import manuscript_source_dir
+
 logger = get_logger(__name__)
 
 _EXCLUDED_DIRS = frozenset(
@@ -241,8 +243,9 @@ def discover_infrastructure_modules(repo_root: Path) -> list[ModuleInfo]:
 
 
 def _project_analysis_from_workspace(child: Path) -> ProjectAnalysis | None:
-    """Build ``ProjectAnalysis`` for *child* if it contains ``manuscript/config.yaml``."""
-    config_path = child / "manuscript" / "config.yaml"
+    """Build ``ProjectAnalysis`` for *child* if its manuscript source contains ``config.yaml``."""
+    manuscript_dir = manuscript_source_dir(child)
+    config_path = manuscript_dir / "config.yaml"
     if not config_path.is_file():
         return None
 
@@ -253,7 +256,6 @@ def _project_analysis_from_workspace(child: Path) -> ProjectAnalysis | None:
     except (OSError, ValueError, yaml.YAMLError) as exc:
         logger.warning(f"Could not load config for {child.name}: {exc}")
 
-    manuscript_dir = child / "manuscript"
     chapters: list[Path] = []
     if manuscript_dir.is_dir():
         numbered = [p for p in manuscript_dir.rglob("*.md") if p.name[0].isdigit()]
@@ -457,7 +459,7 @@ def load_pipeline_stages_from_yaml(repo_root: Path) -> list[PipelineStage]:
 
 def analyze_test_coverage_config(project_dir: Path) -> CoverageConfig | None:
     """Extract test failure tolerances from a project's ``config.yaml``."""
-    config_path = project_dir / "manuscript" / "config.yaml"
+    config_path = manuscript_source_dir(project_dir) / "config.yaml"
     if not config_path.is_file():
         logger.warning(f"Config not found: {config_path}")
         return None

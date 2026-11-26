@@ -74,28 +74,29 @@ and `paths.locate_repo_root`, `ImportError` branches in
 
 ## Coverage Target
 
-- **Project source**: 90%+ coverage for `projects/templates/template_template/src/`
+- **Project source**: 90% branch coverage on the project `src/` tree
 - **Enforcement**: The pipeline halts at Stage 01 if coverage drops below threshold
 - **Current**: counts are generated, not hand-maintained here — read `output/data/metrics.json` and re-verify with `grep -c "^\s*def test_" tests/test_*.py`.
 
 ## Running Tests
 
+Use the prepared SDK and reference from [Verification](VERIFICATION.md).
+
 ```bash
 # Quick run
-PYTHONPATH=. uv run pytest projects/templates/template_template/tests/ -v --tb=short
+"$sdk_python" -I -m pytest tests/ -v --tb=short
 
 # With coverage
-PYTHONPATH=. uv run pytest projects/templates/template_template/tests/ -v --tb=short \
-  --cov=projects/templates/template_template/src --cov-report=term-missing
+"$sdk_python" -I -m pytest tests/ -v --tb=short \
+  --cov=src --cov-report=term-missing
 
 # Single test file
-PYTHONPATH=. uv run pytest projects/templates/template_template/tests/core/test_meta.py -v
+"$sdk_python" -I -m pytest tests/core/test_meta.py -v
 ```
 
 ## Adding New Tests
 
-1. Create `test_<module>.py` in the cluster directory under `projects/templates/template_template/tests/` that mirrors the module's subpackage (`core/`, `metrics/`, or `figures/`)
-2. Import from `template_template.<cluster>.<module>` (the `src/` is on `PYTHONPATH` via conftest)
+1. Create `test_<module>.py` in the cluster directory under `tests/` that mirrors the module's subpackage (`core/`, `metrics/`, or `figures/`)
+2. Import from `template_template.<cluster>.<module>` (the test bootstrap loads the own package from its source path)
 3. Use real data — no mocks, no fakes, no stubs
 4. Assert against real repository state
-5. Update `docs/VERIFICATION.md` test count if changed

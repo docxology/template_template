@@ -10,7 +10,7 @@ Thin orchestrator scripts for the template meta-project. Testable logic lives in
 Builds metrics and renders injected manuscript chapters.
 
 ```bash
-uv run python projects/templates/template_template/scripts/generate_manuscript_metrics.py
+"$sdk_python" -I scripts/generate_manuscript_metrics.py
 ```
 
 Module logic:
@@ -28,7 +28,7 @@ Outputs:
 Generates architecture figures from live introspection data.
 
 ```bash
-uv run python projects/templates/template_template/scripts/generate_architecture_viz.py
+"$sdk_python" -I scripts/generate_architecture_viz.py
 ```
 
 Module logic:

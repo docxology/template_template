@@ -69,15 +69,15 @@ The steganography path exposes metadata injection, SHA-256 hashing, overlay gene
 
 ## Self-Referential Analysis
 
-Rendered via `projects/templates/template_template` (`generate_manuscript_metrics.py` → injected tokens such as `${module_count}`). Architecture figures stem from [`template_template.figures.architecture_viz`](../src/template_template/figures/architecture_viz.py)—font sizes constrained by §QA.
+Rendered via `projects/templates/template_template` (`generate_manuscript_metrics.py` → injected tokens such as `${module_count}`). Architecture figures stem from [`template_template.figures.architecture_viz`](https://github.com/docxology/template_template/blob/main/src/template_template/figures/architecture_viz.py)—font sizes constrained by §QA.
 
-![Two-Layer Architecture Overview](../output/figures/architecture_overview.png)
+![Two-Layer Architecture Overview](../../output/figures/architecture_overview.png)
 **Figure 1.** Live rendering of the Two-Layer Architecture from repository introspection: the infrastructure layer (top) holds the `${module_count}` reusable subpackages, each annotated with its Python file count and a four-slot documentation badge—`A` AGENTS.md, `R` README.md, `S` SKILL.md, `P` PAI.md, with `·` marking an absent file—so a fully documented module reads `[ARSP]`. A YAML DAG arrow connects it to the project layer (bottom) of public exemplars labelled with chapter and test counts. The takeaway: documentation-duality coverage is near-uniform across the infrastructure, and every box was placed from the same live data the prose cites.
 
-![Pipeline Stage Flow](../output/figures/pipeline_stages.png)
+![Pipeline Stage Flow](../../output/figures/pipeline_stages.png)
 **Figure 2.** Pipeline DAG with ${pipeline_stages_declared} YAML-declared stages (core, LLM, ebook, docxplus, metadata, bundle, archival tags).
 
-![Infrastructure Module Inventory](../output/figures/module_inventory.png)
+![Infrastructure Module Inventory](../../output/figures/module_inventory.png)
 **Figure 3.** Horizontal file-count histogram of every infrastructure subdirectory, sorted largest-first. The long tail of small, single-purpose packages beside a handful of larger ones (`core`, `validation`, `publishing`) is the visual signature of the Unix-philosophy modularity the architecture section argues for—capability concentrated where it compounds, not spread evenly by fiat.
 
 ## Comparative Feature Analysis
@@ -85,7 +85,7 @@ Rendered via `projects/templates/template_template` (`generate_manuscript_metric
 Figure 4 summarizes the Appendix F capability matrix.
 
 
-![Comparative Feature Analysis Heatmap](../output/figures/comparative_feature_matrix.png)
+![Comparative Feature Analysis Heatmap](../../output/figures/comparative_feature_matrix.png)
 **Figure 4.** 14 × 10 heatmap annotated in appendix text—green **✓** full native capability, yellow **◐** partial / plugin-hosted, red **—** unavailable. Rows group *Core Pipeline*, *Quality & Security*, then *Ecosystem*.
 
 ¹ Nextflow lineage records exist at workflow scope, not per rendered PDF citation graph.

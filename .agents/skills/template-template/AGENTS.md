@@ -18,4 +18,4 @@ Agents that need to:
 
 ## Cross-refs
 
-- Project root: [`../../..`](../../../).
+- Project root: [`../../..`](../../..).

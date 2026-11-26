@@ -19,7 +19,7 @@ _bootstrap = importlib.util.module_from_spec(_BOOTSTRAP_SPEC)
 _BOOTSTRAP_SPEC.loader.exec_module(_bootstrap)
 _bootstrap.bootstrap_project(PROJECT_DIR)
 
-from template_template.core.paths import data_repo_root, verify_reference_inputs  # noqa: E402 - selected SDK and own namespace precede imports
+from template_template.core.paths import data_repo_root, manuscript_source_dir, verify_reference_inputs  # noqa: E402 - selected SDK and own namespace precede imports
 
 # Complete public SOURCE DATA is a separate input, never an SDK import path.
 _explicit_repo_root = os.environ.get("TEMPLATE_REPO_ROOT", "").strip()
@@ -37,7 +37,7 @@ from infrastructure.core.logging.utils import get_logger  # noqa: E402
 
 logger = get_logger(__name__)
 
-MANUSCRIPT_DIR = PROJECT_DIR / "manuscript"
+MANUSCRIPT_DIR = manuscript_source_dir(PROJECT_DIR)
 OUTPUT_DATA_DIR = PROJECT_DIR / "output" / "data"
 OUTPUT_MANUSCRIPT_DIR = PROJECT_DIR / "output" / "manuscript"
 

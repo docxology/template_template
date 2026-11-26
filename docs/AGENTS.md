@@ -36,7 +36,7 @@ projects/templates/template_template/
 │   ├── core/                      # test_meta, test_contracts, test_confidentiality, test_edge_cases, test_script_entrypoints
 │   ├── metrics/                   # test_metrics, test_evidence_contract, test_stale_metrics_control
 │   └── figures/                   # test_architecture_viz
-├── manuscript/                    # 21 Markdown chapters + references.bib
+├── docs/manuscript/                    # 21 Markdown chapters + references.bib
 ├── docs/                          # This directory
 ├── output/                        # Generated artifacts (figures, PDFs, data)
 ├── data/                          # Versioned claim/evidence inputs
@@ -79,6 +79,6 @@ introspection.py → metrics.json → inject_metrics.py → output/manuscript/*.
 ## See Also
 
 - [../AGENTS.md](../AGENTS.md) — Project-level technical documentation
-- [../manuscript/AGENTS.md](../manuscript/AGENTS.md) — Manuscript chapter index
+- [../manuscript/AGENTS.md](manuscript/AGENTS.md) — Manuscript chapter index
 - [../src/template_template/AGENTS.md](../src/template_template/AGENTS.md) — Source code documentation
-- [../../../AGENTS.md](../../../AGENTS.md) — Root template documentation
+- [../../../AGENTS.md](https://github.com/docxology/template/blob/87704feae0a4490ef7dad9c931d268e8c30273c2/AGENTS.md) — Shared Template agent guidance

@@ -14,7 +14,7 @@ from helpers import PROJECT_DIR, REPO_ROOT
 def test_generate_manuscript_metrics_runs_from_repo_root_without_dirtying_checkout(tmp_path: Path) -> None:
     sandbox = tmp_path / PROJECT_DIR.name
     shutil.copytree(PROJECT_DIR / "src", sandbox / "src")
-    shutil.copytree(PROJECT_DIR / "manuscript", sandbox / "manuscript")
+    shutil.copytree(PROJECT_DIR / "docs" / "manuscript", sandbox / "docs" / "manuscript")
     shutil.copy2(PROJECT_DIR / "pyproject.toml", sandbox / "pyproject.toml")
     environment = dict(os.environ)
     environment.update(
@@ -31,7 +31,8 @@ def test_generate_manuscript_metrics_runs_from_repo_root_without_dirtying_checko
         env=environment,
         text=True,
         capture_output=True,
-        timeout=120,
+        # Complete public reference admission rehashes the real repository.
+        timeout=600,
         check=False,
     )
 

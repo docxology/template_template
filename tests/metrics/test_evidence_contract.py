@@ -54,7 +54,7 @@ def test_source_manuscript_has_no_unsupported_evidence_tokens() -> None:
     """All source-manuscript numbers and citations need registered provenance."""
     registry = build_project_evidence_registry(PROJECT_DIR)
     failures: list[str] = []
-    for path in sorted((PROJECT_DIR / "manuscript").glob("*.md")):
+    for path in sorted((PROJECT_DIR / "docs" / "manuscript").glob("*.md")):
         report = validate_text_against_registry(path.read_text(encoding="utf-8"), registry)
         failures.extend(
             f"{path.name}:{issue.line_number}: unsupported {issue.kind} {issue.value}"

@@ -11,7 +11,7 @@ The template additionally includes `CLAUDE.md` at the repository root, providing
 
 ## Agentic Skill Architecture {#agentic-skill-architecture}
 
-The [Documentation Duality](#documentation-duality-and-ai-collaboration) standard addresses human and AI navigation at the directory level. A complementary layer operates at the *module* level: every infrastructure subpackage carries two additional machine-readable files that transform it from a passive code library into an active, protocol-aligned skill endpoint.
+The Documentation Duality standard addresses human and AI navigation at the directory level. A complementary layer operates at the *module* level: every infrastructure subpackage carries two additional machine-readable files that transform it from a passive code library into an active, protocol-aligned skill endpoint.
 
 ### The Three-Tier Skill Protocol
 

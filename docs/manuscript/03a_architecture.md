@@ -27,7 +27,7 @@ The two layers communicate exclusively through Python imports and filesystem pat
 Projects are designed to be completely self-contained. Adding a new project requires no changes to the infrastructure layer, no modifications to `pyproject.toml`, and no updates to the pipeline orchestrator. A project is automatically discovered if and only if it satisfies two conditions:
 
 1. It exists as a subdirectory of `projects/`.
-2. It contains the file `manuscript/config.yaml`.
+2. Its manuscript source contains `config.yaml`. The meta-project keeps its own source in `docs/manuscript/`.
 
 This paradigm enables horizontal scaling: N researchers can maintain N independent projects within a single repository, sharing infrastructure without coupling. Each project declares its own testing tolerances, manuscript metadata, LLM review preferences, and rendering configuration in its `config.yaml`. The system currently hosts its public canonical exemplars under `projects/templates/` (${public_exemplar_list}), including this meta-manuscript at `projects/templates/template_template/`.
 

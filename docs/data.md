@@ -7,5 +7,5 @@ Committed, version-controlled inputs for the exemplar (no runtime downloads).
   Live module, project, stage, and test counts are intentionally absent: the
   metrics generator re-derives those from the current tree.
 
-See [`AGENTS.md`](AGENTS.md) for the ledger schema and the rule that only
+See [`AGENTS.md`](../data/AGENTS.md) for the ledger schema and the rule that only
 project *inputs* — never pipeline outputs — belong in this directory.

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The template meta-project manuscript is a 21-file, modular Markdown document that describes the `template/` architecture. It lives under `projects/templates/template_template/` as a git-tracked public exemplar alongside the other template exemplars. It is the manuscript that uses variable injection — `${variable}` tokens are replaced with live repository metrics at build time.
+The template meta-project manuscript is a 21-file, modular Markdown document that describes the `template/` architecture. Its maintained source is [`docs/manuscript/`](manuscript/). It is the manuscript that uses variable injection — `${variable}` tokens are replaced with live repository metrics at build time.
 
 ## File Structure
 
@@ -65,19 +65,19 @@ This manuscript uses `${variable}` tokens that are replaced with live values dur
 
 1. `scripts/generate_manuscript_metrics.py` runs `build_manuscript_metrics_dict()`
 2. Metrics are written to `output/data/metrics.json`
-3. `render_all_chapters()` reads each `manuscript/*.md` file
+3. `render_all_chapters()` reads each `docs/manuscript/*.md` file
 4. `${variable}` tokens are substituted with computed values
 5. Rendered files are written to `output/manuscript/*.md`
-6. Stage 03 reads from `output/manuscript/` preferentially
+6. Stage 03 uses the checked hydrated files under `output/manuscript/`
 
 ### Key Tokens
 
 | Token | Meaning |
 |-------|---------|
 | `${module_count}` | Infrastructure subpackages discovered live |
-| `${pipeline_stages_declared}` | YAML contract stage count (16 as of 2026-07-07; live re-derived) |
-| `${pipeline_stages_default_full}` | Default full run (10) |
-| `${pipeline_stages_core_only}` | `--core-only` run (8) |
+| `${pipeline_stages_declared}` | Stage count declared by the reference YAML contract |
+| `${pipeline_stages_default_full}` | Default full run after filter selection |
+| `${pipeline_stages_core_only}` | Stage count after selecting the core profile |
 | `${stage_count}` | Numbered `scripts/NN_*.py` files only |
 | `${public_exemplar_list}` | Git-tracked exemplar slugs from `public_scope` |
 | `${docs_file_count}` | Markdown files under `docs/` |

@@ -19,7 +19,7 @@ SDK_ORIGIN = Path(infrastructure.__file__).resolve(strict=True)
 SDK_DIGEST = hashlib.sha256(SDK_ORIGIN.read_bytes()).hexdigest()
 
 
-_testing = yaml.safe_load((PROJECT / "manuscript/config.yaml").read_text()).get("testing", {})
+_testing = yaml.safe_load((PROJECT / "docs" / "manuscript" / "config.yaml").read_text()).get("testing", {})
 DOMAIN_EXPECTATION = {
     key: _testing.get(key, 0) for key in ("max_test_failures", "max_infra_test_failures", "max_project_test_failures")
 }
@@ -36,7 +36,7 @@ ALIASED_MODULE = "template_template.core.introspection"
 
 def _copy_project(tmp_path: Path) -> Path:
     project = tmp_path / PACKAGE
-    for name in ("src", "scripts", "manuscript"):
+    for name in ("src", "scripts", "docs"):
         shutil.copytree(PROJECT / name, project / name, ignore=shutil.ignore_patterns("__pycache__"))
     shutil.copy2(PROJECT / "pyproject.toml", project / "pyproject.toml")
     return project

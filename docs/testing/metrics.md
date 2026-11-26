@@ -2,4 +2,4 @@
 
 Mirrors `src/template_template/metrics/`: live-repo manuscript metrics
 computation, JSON persistence, and `${variable}` chapter injection. See
-[`../AGENTS.md`](../AGENTS.md) for the testing contract.
+[`../AGENTS.md`](../../tests/AGENTS.md) for the testing contract.

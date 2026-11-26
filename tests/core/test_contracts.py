@@ -29,14 +29,14 @@ def test_metrics_receipt_is_deterministic_and_rejects_stale_payload() -> None:
 
 
 def test_comparative_matrix_is_lockstep_with_manuscript() -> None:
-    result = validate_comparative_matrix_lockstep(PROJECT_DIR / "manuscript" / "08f_appendix_matrix.md")
+    result = validate_comparative_matrix_lockstep(PROJECT_DIR / "docs" / "manuscript" / "08f_appendix_matrix.md")
     assert result["status"] == "pass"
     assert result["rows"] == 14
     assert result["columns"] == 10
 
 
 def test_comparative_matrix_missing_row_is_rejected(tmp_path: Path) -> None:
-    source = (PROJECT_DIR / "manuscript" / "08f_appendix_matrix.md").read_text(encoding="utf-8")
+    source = (PROJECT_DIR / "docs" / "manuscript" / "08f_appendix_matrix.md").read_text(encoding="utf-8")
     path = tmp_path / "matrix.md"
     path.write_text(source.replace("| Testing enforcement |", "| Removed row |"), encoding="utf-8")
     with pytest.raises(ValueError, match="missing rows"):

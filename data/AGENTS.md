@@ -30,4 +30,4 @@ introspection.
 4. Re-run manuscript evidence validation after ledger edits.
 5. Do not store generated metrics JSON or manuscript output under `data/`.
 
-Quick orientation: [`README.md`](README.md).
+Quick orientation: [`README.md`](../docs/data.md).

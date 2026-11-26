@@ -20,7 +20,7 @@ template_template/
 │   └── figures/                  # Figure orchestrator + per-figure builders + palette
 ├── scripts/                      # Thin orchestrators (metrics, figures)
 ├── tests/                     # 90%+ coverage on src/
-├── manuscript/                # Chapters + config + references
+├── docs/manuscript/                # Chapters + config + references
 ├── docs/                      # Project-level technical docs
 └── output/                    # Generated figures, metrics, manuscript, PDF
 ```
@@ -36,7 +36,7 @@ quick reference commands, and pitfalls.
 # Publishing
 
 - Monorepo references ([`docxology/template`](https://github.com/docxology/template)): [Publishing guide](https://github.com/docxology/template/blob/main/docs/guides/publishing-guide.md) · [Publishing module reference](https://github.com/docxology/template/blob/main/infrastructure/publishing/README.md) · [Zenodo DOI strategy](https://github.com/docxology/template/blob/main/docs/guides/zenodo-doi-strategy.md) · [Archival targets](https://github.com/docxology/template/blob/main/docs/maintenance/archival-targets.md)
-- Concept DOI: `manuscript/config.yaml` → `publication.doi` (PDF cover); `version_doi` / `version_record` for latest Zenodo deposit
+- Concept DOI: `docs/manuscript/config.yaml` → `publication.doi` (PDF cover); `version_doi` / `version_record` for latest Zenodo deposit
 - Standalone repo: [template_template GitHub repository](https://github.com/docxology/template_template)
 
 ## Key Subsystems
@@ -69,13 +69,13 @@ quick reference commands, and pitfalls.
 
 ## Verification
 
-From the template repo root:
+After the setup in [Verification](docs/VERIFICATION.md), from this project root:
 
 ```bash
-uv run pytest projects/templates/template_template/tests/ \
-  --cov=projects/templates/template_template/src/template_template --cov-fail-under=90 -v
-uv run python projects/templates/template_template/scripts/generate_manuscript_metrics.py
-uv run python projects/templates/template_template/scripts/generate_architecture_viz.py
+"$sdk_python" -I -m pytest tests/ \
+  --cov=src --cov-fail-under=90 -v
+"$sdk_python" -I scripts/generate_manuscript_metrics.py
+"$sdk_python" -I scripts/generate_architecture_viz.py
 ```
 
 ## Patterns
@@ -88,7 +88,7 @@ uv run python projects/templates/template_template/scripts/generate_architecture
 
 - [`README.md`](README.md)
 - [`docs/AGENTS.md`](docs/AGENTS.md)
-- [`manuscript/AGENTS.md`](manuscript/AGENTS.md)
+- [`manuscript/AGENTS.md`](docs/manuscript/AGENTS.md)
 - [`src/template_template/AGENTS.md`](src/template_template/AGENTS.md)
 
 

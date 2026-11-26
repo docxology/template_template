@@ -6,7 +6,6 @@ from pathlib import Path
 
 from template_template.introspection import ModuleInfo
 from template_template.metrics import (
-    _generated_timestamp,
     build_manuscript_metrics_dict,
     build_module_inventory_table,
     count_docs_markdown_files,
@@ -15,6 +14,8 @@ from template_template.metrics import (
     count_test_functions,
     format_count,
 )
+
+from template_template.metrics.metrics import _generated_timestamp
 
 from helpers import REPO_ROOT
 

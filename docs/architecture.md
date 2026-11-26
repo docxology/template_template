@@ -46,7 +46,7 @@ Exports:
 
 `InfrastructureReport` properties:
 
-- `pipeline_stages_declared` — YAML stage count (16 as of 2026-07-07; live re-derived, see `manuscript/AGENTS.md`)
+- `pipeline_stages_declared` — YAML stage count, re-derived from the reference pipeline on each run
 - `pipeline_stages_default_full` — default full run (10)
 - `pipeline_stages_core_only` — `--core-only` (8)
 
@@ -67,7 +67,7 @@ Exports:
 
 ### `metrics/inject_metrics.py`
 
-Reads `manuscript/*.md`, substitutes tokens from `metrics.json`, writes `output/manuscript/`.
+Reads `docs/manuscript/*.md`, substitutes tokens from `metrics.json`, writes `output/manuscript/`.
 
 ## Data Flow
 
@@ -79,15 +79,11 @@ introspection.py → InfrastructureReport
 
 ## Script Architecture (Thin Orchestrators)
 
-Both `generate_architecture_viz.py` and `generate_manuscript_metrics.py` resolve the Layer-1 repo via `locate_repo_root()` (from `src/template_template/core/paths.py`; works from `projects/templates/template_template/`), then delegate to `src/template_template/`.
+The two producer scripts select the admitted public source reference through
+`data_repo_root()`, then delegate to `src/template_template/`. Ordinary source
+discovery uses `locate_repo_root()` when no reference is bound. The metrics
+producer hydrates [the canonical manuscript](manuscript/) from the resulting
+data and writes the derived chapters to `output/manuscript/`.
 
-## Verification
-
-From the public template repo root:
-
-```bash
-uv run pytest projects/templates/template_template/tests/ \
-  --cov=projects/templates/template_template/src/template_template --cov-fail-under=90 -v
-uv run python projects/templates/template_template/scripts/generate_manuscript_metrics.py
-uv run python projects/templates/template_template/scripts/generate_architecture_viz.py
-```
+Use [Verification](VERIFICATION.md) for SDK setup and tests, and the
+[rendering pipeline](rendering_pipeline.md) for the production commands.

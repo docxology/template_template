@@ -22,14 +22,9 @@ Project-scoped skill for the in-repo exemplar at
 
 ## Quick Reference
 
-```bash
-# From the repository root
-uv run pytest projects/templates/template_template/tests --cov=projects/templates/template_template/src --cov-fail-under=90
-uv run python scripts/pipeline/stage_02_analysis.py --project templates/template_template
-uv run python scripts/pipeline/stage_03_render.py --project templates/template_template
-uv run python scripts/pipeline/stage_04_validate.py --project templates/template_template
-uv run python scripts/pipeline/stage_05_copy.py --project templates/template_template
-```
+Use the [standalone verification setup](../../../docs/VERIFICATION.md) to prepare
+the SDK and source data. Follow the [rendering pipeline](../../../docs/rendering_pipeline.md)
+for live metrics, hydration, and the shared stages.
 
 ## Pitfalls
 
@@ -46,5 +41,5 @@ uv run python scripts/pipeline/stage_05_copy.py --project templates/template_tem
 
 - Project contract: [`AGENTS.md`](../../../AGENTS.md)
 - README: [`README.md`](../../../README.md)
-- TODO: [`TODO.md`](../../../TODO.md)
-- Exemplar roster: [`projects/AGENTS.md`](../../../../../AGENTS.md)
+- TODO: [`TODO.md`](../../../docs/backlog.md)
+- Exemplar roster: [`projects/AGENTS.md`](https://github.com/docxology/template/blob/87704feae0a4490ef7dad9c931d268e8c30273c2/projects/AGENTS.md)

@@ -4,12 +4,9 @@ Twenty-one numbered Markdown chapters (Abstract through **`08f`**) plus ancillar
 
 Appendices (**`08a–08f`**) consolidate pipeline YAML mapping, directory sketches, canonical exemplars, documentation inventories, comparative matrices.
 
-## Regenerate placeholders + outputs
+## Authoring and build
 
-From repo root:
-
-```bash
-uv run python projects/templates/template_template/scripts/generate_manuscript_metrics.py
-```
-
-Location note: this tree is git-tracked at **`projects/templates/template_template`**, so standard `./run.sh` discovery applies; canonical exemplars authoritative list → `docs/_generated/active_projects.md`.
+- [Active configuration](config.yaml), [configuration example](config.yaml.example)
+- [Preamble](preamble.md), [bibliography](references.bib)
+- [Chapter and token guide](../manuscript_guide.md)
+- [Evidence generation and rendering](../rendering_pipeline.md)

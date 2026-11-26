@@ -469,7 +469,7 @@ class TestInjectMetrics:
 
     def test_render_all_chapters_real_manuscript(self, tmp_path):
         """render_all_chapters works on the real template manuscript directory."""
-        manuscript_dir = PROJECT_DIR / "manuscript"
+        manuscript_dir = PROJECT_DIR / "docs" / "manuscript"
         out_dir = tmp_path / "rendered"
         # A small fixture is sufficient for this file-copy smoke test; the live
         # round-trip test below enforces complete token resolution.
@@ -558,7 +558,7 @@ class TestInjectMetrics:
         assert int(loaded["total_infra_python_files"]) >= 50
         assert loaded["infrastructure_version"] != "unknown"
         rendered_dir = tmp_path / "rendered"
-        render_all_chapters(PROJECT_DIR / "manuscript", loaded, rendered_dir)
+        render_all_chapters(PROJECT_DIR / "docs" / "manuscript", loaded, rendered_dir)
         assert validate_all_resolved(rendered_dir) == []
 
 
@@ -571,7 +571,7 @@ class TestSelfDescriptionPins:
     """
 
     def _section06_text(self) -> str:
-        return Path(PROJECT_DIR / "manuscript" / "06_infrastructure_modules.md").read_text(encoding="utf-8")
+        return Path(PROJECT_DIR / "docs" / "manuscript" / "06_infrastructure_modules.md").read_text(encoding="utf-8")
 
     def test_every_importable_package_has_a_section06_subsection(self):
         modules = discover_infrastructure_modules(REPO_ROOT)

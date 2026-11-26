@@ -18,13 +18,10 @@ from template_template import (
     discover_infrastructure_modules,
     discover_projects,
     enumerate_numbered_scripts,
-    load_metrics,
     load_pipeline_stages_from_yaml,
-    render_all_chapters,
-    render_chapter,
     resolve_template_repo_root,
 )
-from template_template.inject_metrics import validate_all_resolved
+from template_template.inject_metrics import load_metrics, render_all_chapters, render_chapter, validate_all_resolved
 from helpers import PROJECT_DIR, REPO_ROOT
 
 
@@ -230,7 +227,7 @@ class TestResolveTemplateRepoRoot:
     """Tests for ``resolve_template_repo_root``."""
 
     def test_resolves_from_project_dir(self):
-        root = resolve_template_repo_root(PROJECT_DIR)
+        root = resolve_template_repo_root(REPO_ROOT / "projects/templates/template_template")
         assert (root / "infrastructure").is_dir()
         assert root == REPO_ROOT
 
@@ -469,7 +466,7 @@ class TestInjectMetrics:
 
     def test_render_all_chapters_real_manuscript(self, tmp_path):
         """render_all_chapters works on the real template manuscript directory."""
-        manuscript_dir = PROJECT_DIR / "manuscript"
+        manuscript_dir = PROJECT_DIR / "docs" / "manuscript"
         out_dir = tmp_path / "rendered"
         # A small fixture is sufficient for this file-copy smoke test; the live
         # round-trip test below enforces complete token resolution.
@@ -499,6 +496,18 @@ class TestInjectMetrics:
             assert ch in out_names, f"Chapter {ch} not in rendered output"
 
     # --- validate_all_resolved ---
+
+    def test_legacy_injection_reports_unresolved_token_in_numbered_chapter(self, tmp_path):
+        source = tmp_path / "source"
+        source.mkdir()
+        (source / "01_chapter.md").write_text("Value: ${unbound_metric}", encoding="utf-8")
+
+        output = tmp_path / "hydrated"
+        render_all_chapters(source, {}, output)
+
+        assert validate_all_resolved(output) == [
+            "01_chapter.md: 1 unresolved token(s): ${unbound_metric}",
+        ]
 
     def test_validate_all_resolved_missing_dir_reports_issue(self, tmp_path):
         """validate_all_resolved on a nonexistent directory returns a 'not found' issue."""
@@ -558,7 +567,7 @@ class TestInjectMetrics:
         assert int(loaded["total_infra_python_files"]) >= 50
         assert loaded["infrastructure_version"] != "unknown"
         rendered_dir = tmp_path / "rendered"
-        render_all_chapters(PROJECT_DIR / "manuscript", loaded, rendered_dir)
+        render_all_chapters(PROJECT_DIR / "docs" / "manuscript", loaded, rendered_dir)
         assert validate_all_resolved(rendered_dir) == []
 
 
@@ -571,7 +580,7 @@ class TestSelfDescriptionPins:
     """
 
     def _section06_text(self) -> str:
-        return Path(PROJECT_DIR / "manuscript" / "06_infrastructure_modules.md").read_text(encoding="utf-8")
+        return Path(PROJECT_DIR / "docs" / "manuscript" / "06_infrastructure_modules.md").read_text(encoding="utf-8")
 
     def test_every_importable_package_has_a_section06_subsection(self):
         modules = discover_infrastructure_modules(REPO_ROOT)

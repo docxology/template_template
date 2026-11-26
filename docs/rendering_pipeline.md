@@ -1,113 +1,61 @@
-# Rendering Pipeline — Template Meta-Project
+# Rendering Pipeline
 
-## Overview
+The [manuscript source](manuscript/) contains numbered chapters, a preamble,
+and [the bibliography](manuscript/references.bib). The
+[project configuration](manuscript/config.yaml) declares publication and test
+metadata. Build from a fresh project checkout to keep its release snapshot
+separate from the newly derived results.
 
-The template project has a unique rendering pipeline because its manuscript contains `${variable}` tokens that must be resolved before PDF generation. This document traces the full path from Markdown source to final PDF.
+## Register the standalone project
 
-## Pipeline Path
+From a directory outside the project, clone the shared renderer and register
+a separate clone of this project's source at the revision to render.
 
-```
-Stage 02 (Analysis)
-├── generate_architecture_viz.py → output/figures/*.png (4 figures)
-└── generate_manuscript_metrics.py
-    ├── introspection.py → output/data/metrics.json
-    └── inject_metrics.py → output/manuscript/*.md (21 rendered chapters)
-
-Stage 03 (Rendering)
-├── Discovers output/manuscript/*.md (preference over manuscript/)
-├── Pandoc: Markdown → LaTeX (with config.yaml metadata)
-├── XeLaTeX: LaTeX → PDF (with biber for bibliography)
-└── Output: output/template_template/pdf/template_template_combined.pdf
-```
-
-## Stage 02: Analysis Scripts
-
-Two scripts execute in alphabetical order:
-
-### 1. `generate_architecture_viz.py`
-
-- Calls `generate_all_architecture_figures(repo_root, project_dir)`
-- Produces 4 PNG figures in `output/figures/`
-- Figures are referenced by the manuscript chapters
-
-### 2. `generate_manuscript_metrics.py`
-
-- Calls `build_infrastructure_report(repo_root)` to scan the repository
-- Constructs a metrics dictionary from the report
-- Scans `projects/*/tests/` for per-project test counts
-- Writes `output/data/metrics.json`
-- Calls `render_all_chapters()` to inject variables into manuscript files
-- Writes rendered chapters to `output/manuscript/`
-
-## Stage 03: PDF Rendering
-
-The pipeline's `scripts/pipeline/stage_03_render.py` calls
-`infrastructure/rendering/_manuscript_source.py::resolve_manuscript_dir`, the render
-hook that detects the presence of `output/manuscript/` and uses it instead of
-`manuscript/` (population of `output/manuscript/*.md` itself happens via
-`infrastructure/rendering/manuscript_injection.py::write_resolved_manuscript_tree`,
-invoked from Stage 02's `inject_metrics.py`). This means:
-
-1. The raw manuscript files with `${variable}` tokens stay untouched in `manuscript/`
-2. The rendered files with computed values live in `output/manuscript/`
-3. Stage 03 picks up the rendered files automatically
-
-### Rendering Process
-
-1. **File discovery**: `manuscript_discovery.py` finds all `*.md` files by numeric prefix
-2. **Metadata injection**: `config.yaml` provides title, author, DOI, keywords
-3. **Pandoc conversion**: Markdown → LaTeX with bibliography processing
-4. **XeLaTeX compilation**: LaTeX → PDF with `biber` for references
-5. **Post-processing**: Font embedding, PDF/A checks
-
-### Key Configuration
-
-From `manuscript/config.yaml`:
-
-```yaml
-paper:
-  title: "\\texttt{template/}: A Modular Approach..."
-  subtitle: "Architecture, Ergonomics, and Automated Provenance..."
-publication:
-  doi: "10.5281/zenodo.template.meta"
-  journal: "Journal of Open Research Software"
+```bash
+git clone https://github.com/docxology/template.git
+cd template
+git checkout --detach 87704feae0a4490ef7dad9c931d268e8c30273c2
+uv sync --locked --no-dev --python 3.14
+renderer="$PWD"
+mkdir -p projects/working
+git clone https://github.com/docxology/template_template.git projects/working/template_template
+cd projects/working/template_template
 ```
 
-## Output Artifacts
+Follow [the SDK and reference setup](VERIFICATION.md#prepare-the-sdk-and-the-reference)
+in this project checkout. Install Pandoc 3.14, pandoc-crossref 0.3.26, and a
+TeX installation with XeLaTeX and BibTeX for the renderer.
 
-After a successful pipeline run:
+## Generate evidence and hydrate the manuscript
 
-```
-projects/templates/template_template/output/
-├── data/
-│   └── metrics.json                  # Live repository metrics
-├── figures/
-│   ├── architecture_overview.png     # Figure 1
-│   ├── pipeline_stages.png           # Figure 2
-│   ├── module_inventory.png          # Figure 3
-│   └── comparative_feature_matrix.png # Figure 4
-├── manuscript/
-│   ├── 00_abstract.md               # Rendered (no ${} tokens)
-│   ├── 02_introduction.md
-│   ├── 03a_architecture.md
-│   ├── ...                          # 21 files total
-│   ├── references.bib               # Copied verbatim
-│   ├── config.yaml                  # Copied verbatim
-│   └── preamble.md                  # Copied verbatim
-└── pdf/
-    └── template_template_combined.pdf        # Final rendered PDF
+Run the project's real producers with the admitted source reference in the
+same shell. In this disposable checkout, move aside the tracked output tree
+before generating new results.
 
-output/templates/template_template/             # Copies from Stage 05
-└── pdf/
-    └── template_template_combined.pdf
+```bash
+mv output ../template_template-published-output
+"$sdk_python" -I scripts/generate_architecture_viz.py
+"$sdk_python" -I scripts/generate_manuscript_metrics.py
 ```
 
-## Troubleshooting
+The producers write four architecture plots to `output/figures/` and the
+live introspection receipt to `output/data/metrics.json`. Metric substitution
+creates hydrated chapters under `output/manuscript/` with the bibliography,
+preamble, and configuration needed for rendering.
 
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| `${module_count}` appears in PDF | Stage 02 didn't run | Run `generate_manuscript_metrics.py` |
-| Missing figure in PDF | Stage 02 figure gen failed | Run `generate_architecture_viz.py` |
-| "Division by 0" LaTeX error | Stale `.aux` files | Delete `output/*.aux` and re-run |
-| Bibliography not resolved | `biber` cycle incomplete | XeLaTeX runs automatically handle this |
-| Wrong test count in PDF | Metrics stale | Re-run Stage 02 to refresh `metrics.json` |
+## Render and validate
+
+Run the pinned shared renderer from its own checkout. Clear the project
+producer’s source reference binding so the renderer uses its own source
+checkout and version.
+
+```bash
+cd "$renderer"
+unset TEMPLATE_PUBLIC_REFERENCE_ROOT TEMPLATE_PUBLIC_REFERENCE_COMMIT TEMPLATE_PUBLIC_REFERENCE_FINGERPRINT
+uv run --no-sync python scripts/pipeline/stage_03_render.py --project working/template_template
+uv run --no-sync python scripts/pipeline/stage_04_validate.py --project working/template_template
+```
+
+The stages write results below `projects/working/template_template/output/`.
+Look for the combined publication in `pdf/template_template_combined.pdf`
+and the validation and source provenance receipts under `reports/`.

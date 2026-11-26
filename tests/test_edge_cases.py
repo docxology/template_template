@@ -576,7 +576,7 @@ class TestLocateRepoRootEdgeCases:
     def test_finds_repo_from_project_dir(self) -> None:
         from template_template.paths import locate_repo_root
 
-        result = locate_repo_root(PROJECT_DIR)
+        result = locate_repo_root(REPO_ROOT / "projects/templates/template_template")
         assert result == REPO_ROOT
         assert (result / "infrastructure").is_dir()
 
@@ -669,16 +669,16 @@ class TestModuleMetricSlug:
     """_module_metric_slug normalises dots and hyphens for Template substitution."""
 
     def test_dot_replaced(self) -> None:
-        from template_template.metrics import _module_metric_slug
+        from template_template.metrics.metrics import _module_metric_slug
 
         assert _module_metric_slug("logrotate.d") == "logrotate_d"
 
     def test_hyphen_replaced(self) -> None:
-        from template_template.metrics import _module_metric_slug
+        from template_template.metrics.metrics import _module_metric_slug
 
         assert _module_metric_slug("my-module") == "my_module"
 
     def test_plain_name_unchanged(self) -> None:
-        from template_template.metrics import _module_metric_slug
+        from template_template.metrics.metrics import _module_metric_slug
 
         assert _module_metric_slug("core") == "core"

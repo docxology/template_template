@@ -21,6 +21,15 @@ def locate_repo_root(from_path: Path) -> Path:
     raise FileNotFoundError(f"Could not locate template repo root from {from_path}")
 
 
+
+def manuscript_source_dir(project_root: Path) -> Path:
+    """Use the canonical layout and accept old exemplar catalogs as DATA."""
+    canonical = project_root / "docs" / "manuscript"
+    if canonical.is_dir():
+        return canonical
+    return project_root / "manuscript"
+
+
 def data_repo_root(from_path: Path, *, explicit_root: Path | None = None) -> Path:
     """Select a complete bound DATA reference or retain ordinary source discovery."""
     reference = _REFERENCE.current(explicit_root=explicit_root)
@@ -34,4 +43,4 @@ def verify_reference_inputs() -> None:
     _REFERENCE.verify()
 
 
-__all__ = ["locate_repo_root", "data_repo_root", "verify_reference_inputs"]
+__all__ = ["locate_repo_root", "manuscript_source_dir", "data_repo_root", "verify_reference_inputs"]

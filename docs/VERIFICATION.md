@@ -1,81 +1,74 @@
-# Template Meta-Project Verification
+# Verification
 
-Quick verification routine to run after changes.
+The standalone project uses two independent inputs. The executable SDK is
+`research-project-template==4.0.1`. The complete public reference supplies the
+files measured by the manuscript, including the public exemplar roster and
+tests. A wheel install supplies the SDK. Keep the reference checkout off the
+Python import path and use a separate project checkout for generated outputs.
 
-## 1. Run Tests
+## Prepare the SDK and the reference
 
-Run from the template repo root:
+Install Git, [uv](https://docs.astral.sh/uv/), and Python 3.14. From the
+standalone project root, choose a workspace outside the project to hold the
+reference and wheel. The reference pin is the source commit recorded in
+[the export receipt](../.template-export.json).
 
 ```bash
-uv run pytest projects/templates/template_template/tests/ -v --tb=short \
-  --cov=projects/templates/template_template/src/template_template --cov-fail-under=90
+workspace="$(mktemp -d)"
+git init "$workspace/reference"
+git -C "$workspace/reference" remote add origin https://github.com/docxology/template.git
+git -C "$workspace/reference" fetch --depth 1 origin d160eb9c90eec18e365117c3ccaef731c47d8604
+git -C "$workspace/reference" checkout --detach FETCH_HEAD
+git -C "$workspace/reference" \
+  -c submodule.infrastructure/steganography/kmyth.url=https://github.com/NationalSecurityAgency/kmyth.git \
+  submodule update --init --depth 1 -- infrastructure/steganography/kmyth
+uv build --wheel --out-dir "$workspace/wheels" "$workspace/reference"
+uv venv --python 3.14 "$workspace/venv"
+sdk_python="$workspace/venv/bin/python"
 ```
 
-Expected: all tests passed, 90%+ coverage on `src/template_template/`.
-
-## 2. Generate Figures
-
-```bash
-uv run python projects/templates/template_template/scripts/generate_architecture_viz.py
-```
-
-Expected: four PNG files under `projects/templates/template_template/output/figures/`:
-
-- `architecture_overview.png`
-- `pipeline_stages.png` — YAML DAG (${pipeline_stages_declared} stages)
-- `module_inventory.png`
-- `comparative_feature_matrix.png`
-
-## 3. Generate Metrics and Inject Variables
+The submodule command uses the public upstream for this exact gitlink. Install
+the locked Linux dependency versions and the built wheel into the
+external project environment created above. The project bootstrap selects
+the SDK from outside the project checkout. The lock's editable SDK entry applies to an in-repository build.
 
 ```bash
-uv run python projects/templates/template_template/scripts/generate_manuscript_metrics.py
-```
-
-Expected:
-
-- `output/data/metrics.json` — includes `pipeline_stages_declared`, `pipeline_stages_core_only`, `public_exemplar_list`
-- `output/manuscript/*.md` — numbered chapters without unresolved `${...}` tokens
-
-## 4. Introspection Sanity Check
-
-```bash
-uv run python -c "
+"$sdk_python" - <<'PY' > "$workspace/requirements.txt"
+import tomllib
+with open("uv.lock", "rb") as stream:
+    packages = tomllib.load(stream)["package"]
+for package in packages:
+    if "registry" in package["source"] and package["name"] != "colorama":
+        print(f'{package["name"]}=={package["version"]}')
+PY
+uv pip install --python "$sdk_python" -r "$workspace/requirements.txt" \
+  "$workspace/wheels/research_project_template-4.0.1-py3-none-any.whl"
+export TEMPLATE_PUBLIC_REFERENCE_ROOT="$workspace/reference"
+export TEMPLATE_PUBLIC_REFERENCE_COMMIT="$(git -C "$workspace/reference" rev-parse HEAD)"
+export TEMPLATE_PUBLIC_REFERENCE_FINGERPRINT="$("$sdk_python" -I - "$workspace/reference" <<'PY'
 from pathlib import Path
-from template_template.core.introspection import build_infrastructure_report
-r = build_infrastructure_report(Path('.'))
-assert r.pipeline_stages_declared >= 14
-assert r.pipeline_stages_core_only == 8
-assert r.pipeline_stages_default_full == 10
-print('OK:', r.pipeline_stages_declared, 'declared,', len(r.modules), 'modules')
-"
+import sys
+from infrastructure.project.public_acceptance_scope import RuntimeScope
+from infrastructure.project.public_reference import SnapshotReader, _path_admission
+
+root = Path(sys.argv[1])
+reader = SnapshotReader(root)
+print(RuntimeScope(root, "root").source_identity(path_admission=_path_admission(reader)))
+PY
+)"
 ```
 
-Run from repo root with `projects/templates/template_template/src` on `PYTHONPATH` (pytest conftest handles this).
+The SDK checks the reference commit, fingerprint, submodule identity, and
+source inventory on admission and before accepting results. See
+[the producer and renderer workflow](rendering_pipeline.md) to render the
+publication after setup.
 
-## 5. Full Pipeline (optional — monorepo checkout only)
-
-`scripts/pipeline/` ships with the `docxology/template` monorepo and is absent from this standalone mirror; run these stages in the monorepo root with the project selected as `templates/template_template`.
+## Run the native tests
 
 ```bash
-uv run python scripts/pipeline/stage_02_analysis.py --project template_template
-uv run python scripts/pipeline/stage_03_render.py --project template_template
+"$sdk_python" -I -m pytest tests/ --cov=src --cov-fail-under=90
 ```
 
-## Quick Checklist
-
-| Check | Pass criteria |
-|-------|---------------|
-| Tests | All passed, ≥90% cov on `src/template_template/` |
-| Figures | 4 PNG files in `output/figures/` |
-| Metrics | Valid JSON; pipeline keys present |
-| Manuscript | No unresolved `${` in numbered chapters |
-| Introspection | 16 declared stages, 8 core-only |
-
-## Common Issues
-
-| Symptom | Fix |
-|---------|-----|
-| `ModuleNotFoundError: template` | Run from template repo root; use `projects/templates/template_template/tests/` |
-| `Could not locate template repo root` | Ensure `projects/templates/template_template` exists in the checkout |
-| Stale `${variable}` in PDF | Re-run `generate_manuscript_metrics.py` |
+Use the full [test suite](testing/README.md) for changes to manuscript paths,
+source discovery, or evidence. The native test run and shared renderer
+validation produce separate receipts.

@@ -64,6 +64,11 @@ _Keywords: reproducible research, infrastructure-as-code, steganography, cryptog
 _Status legend: ✅ published (durable identifier recorded in `config.yaml`) · 🔵 reserved (identifier reserved but not yet registered by final publication) · 📚 historical reference (last published release; not intended-version publication evidence) · ⚪ available (adapter implemented and locally verifiable) · 🟡 planned. This block is generated — edit `docs/manuscript/config.yaml`, then regenerate with `uv run python -m infrastructure.publishing.status_report --project <path> --write`._
 <!-- PUBLISHING-STATUS:END -->
 
+The GitHub release is labeled `v1.0.9`. Its tagged source declares `1.0.8` as
+the package and manuscript version. [GitHub release](https://github.com/docxology/template_template/releases/tag/v1.0.9) ·
+[Tagged package metadata](https://github.com/docxology/template_template/blob/c83c17d594cf211e80db8fe9967ed9edd3f767f0/pyproject.toml#L3) ·
+[Tagged manuscript configuration](https://github.com/docxology/template_template/blob/c83c17d594cf211e80db8fe9967ed9edd3f767f0/manuscript/config.yaml#L6)
+
 The 3 platforms still shown ⚪ available are not automatable to "published" with
 current tooling/credentials, not an oversight: **arXiv** has no submission API
 in this codebase (`infrastructure.publishing.arxiv` only prepares a local

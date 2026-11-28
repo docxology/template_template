@@ -10,18 +10,18 @@ Technical documentation for the `template` meta-project — the self-referential
 |------|---------|
 | `AGENTS.md` | This file — directory index and agent instructions |
 | `README.md` | Quick navigation and document links |
-| `VERIFICATION.md` | Sub-minute verification routine (tests, figures, introspection) |
+| `VERIFICATION.md` | Pinned SDK setup, tests, metrics, and figure verification |
 | `architecture.md` | Project architecture: src/ modules, scripts, data flow |
 | `testing_philosophy.md` | Zero-mock standard, test categories, coverage targets |
 | `manuscript_guide.md` | Manuscript file structure, variable injection, rendering |
-| `rendering_pipeline.md` | How Stage 02 + Stage 03 produce the final PDF |
+| `rendering_pipeline.md` | Evidence generation, reader rendering, and validation |
 | `agent_instructions.md` | Agent-facing orientation for working in this exemplar |
 | `troubleshooting.md` | Common failure modes and remedies |
 
 ## Project Structure
 
 ```text
-projects/templates/template_template/
+template_template/
 ├── src/template_template/         # Domain logic (Layer 2)
 │   ├── __init__.py                # Public API (generate_all_architecture_figures)
 │   ├── core/                      # Introspection, contracts, repo-root discovery
@@ -36,8 +36,8 @@ projects/templates/template_template/
 │   ├── core/                      # test_meta, test_contracts, test_confidentiality, test_edge_cases, test_script_entrypoints
 │   ├── metrics/                   # test_metrics, test_evidence_contract, test_stale_metrics_control
 │   └── figures/                   # test_architecture_viz
-├── docs/manuscript/                    # 21 Markdown chapters + references.bib
-├── docs/                          # This directory
+├── docs/                          # Project documentation
+│   └── manuscript/                # Numbered sections, config, preamble, and bibliography
 ├── output/                        # Generated artifacts (figures, PDFs, data)
 ├── data/                          # Versioned claim/evidence inputs
 └── pyproject.toml                 # Project metadata
@@ -72,13 +72,13 @@ introspection.py → metrics.json → inject_metrics.py → output/manuscript/*.
 1. This file — Understand project structure and conventions
 2. `architecture.md` — Understand module boundaries and data flow
 3. `testing_philosophy.md` — Understand test requirements before writing code
-4. `manuscript_guide.md` — Understand the 21-file manuscript structure
+4. [Manuscript guide](manuscript_guide.md#file-structure) — Find the numbered sections and supporting files
 5. `rendering_pipeline.md` — Understand how manuscript becomes PDF
 6. `VERIFICATION.md` — Run the verification routine after making changes
 
 ## See Also
 
 - [../AGENTS.md](../AGENTS.md) — Project-level technical documentation
-- [../manuscript/AGENTS.md](manuscript/AGENTS.md) — Manuscript chapter index
+- [Manuscript source guide](manuscript/AGENTS.md) — Manuscript chapter index
 - [../src/template_template/AGENTS.md](../src/template_template/AGENTS.md) — Source code documentation
 - [../../../AGENTS.md](https://github.com/docxology/template/blob/87704feae0a4490ef7dad9c931d268e8c30273c2/AGENTS.md) — Shared Template agent guidance

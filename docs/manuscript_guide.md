@@ -2,7 +2,10 @@
 
 ## Overview
 
-The template meta-project manuscript is a 21-file, modular Markdown document that describes the `template/` architecture. Its maintained source is [`docs/manuscript/`](manuscript/). It is the manuscript that uses variable injection — `${variable}` tokens are replaced with live repository metrics at build time.
+The Template meta-project manuscript describes the public Template architecture.
+Its numbered Markdown sections, configuration, preamble, and bibliography live
+in [`docs/manuscript/`](manuscript/). At build time, the evidence producer
+replaces `${variable}` tokens with live repository metrics.
 
 ## File Structure
 

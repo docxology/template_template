@@ -14,7 +14,10 @@ describing its architecture, pipeline, and documentation practices.
 | Fork the project or review publishing history | [Standalone guide](standalone.md), [publication consistency review](publication_consistency_review.md), [backlog](backlog.md) |
 | Find repository conventions for changes | [Agent guidance](AGENTS.md), [workflow](agent_instructions.md) |
 
-The separately exported `_template_resources/` tree holds Template SDK resources.
-The tracked `output/` tree contains a publication snapshot. The export and publication-tree receipts
-record the imported source and output snapshot. See
-[verification](VERIFICATION.md) for a fresh build in an isolated checkout.
+The [bundled infrastructure](../_template_resources/infrastructure/README.md) is part of the Template source export.
+The evidence producers and tests use the Template 4.0.1 wheel and the complete public
+reference prepared by the [verification setup](VERIFICATION.md#prepare-the-sdk-and-the-reference).
+Build the readers with the separately pinned checkout in the [rendering pipeline](rendering_pipeline.md#render-and-validate).
+
+The tracked `output/` tree contains the publication snapshot. The export receipt identifies
+the imported source revision, and the publication-tree inventory records managed source paths.
